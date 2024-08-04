@@ -1,13 +1,9 @@
 import 'dart:async';
 
-
-import 'package:active_ecommerce_flutter/my_theme.dart';
-import 'package:active_ecommerce_flutter/other_config.dart';
 import 'package:active_ecommerce_flutter/presenter/cart_counter.dart';
 import 'package:active_ecommerce_flutter/presenter/currency_presenter.dart';
 import 'package:active_ecommerce_flutter/presenter/unRead_notification_counter.dart';
 import 'package:active_ecommerce_flutter/providers/locale_provider.dart';
-
 import 'package:active_ecommerce_flutter/services/push_notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +14,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:one_context/one_context.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_value/shared_value.dart';
-
 import 'app_config.dart';
 import 'lang_config.dart';
+import 'my_theme.dart';
+import 'other_config.dart';
 import 'utils/router_config.dart';
 
 main() async {
@@ -158,8 +155,6 @@ class _MyAppState extends State<MyApp> {
               return const Locale('en');
             },
 
-            // home: SplashScreen(),
-            // home: Splash(),
           );
         }));
   }

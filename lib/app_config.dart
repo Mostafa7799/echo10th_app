@@ -2,13 +2,13 @@ var this_year = DateTime.now().year.toString();
 
 class AppConfig {
   static String copyright_text =
-      "@ ActiveItZone " + this_year; //this shows in the splash screen
-  static String app_name = "Active eCommerce"; //this shows in the splash screen
+      "@ Echo10th " + this_year; //this shows in the splash screen
+  static String app_name = "Echo 10th"; //this shows in the splash screen
 
   static String purchase_code =
-      "purchase-code"; //enter your purchase code for the app from codecanyon
+      "11eda666-a748-4e77-bb7b-732ee8826800"; //enter your purchase code for the app from codecanyon
   static String system_key =
-      r"system-key"; //enter your purchase code for the app from codecanyon
+      r"$2y$10$xLOYS1Qr46K70MUquE4ii.AvmzKftkhf3B.HUfDyVgqOTYYBNdo3W"; //enter your purchase code for the app from codecanyon
 
   //Default language config
   static String default_language = "en";
@@ -18,7 +18,7 @@ class AppConfig {
   //configure this
   static const bool HTTPS = true;
 
-  static const DOMAIN_PATH = "domain.com"; //localhost
+  static const DOMAIN_PATH = "https://new.echo10th.com"; //localhost
 
   //do not configure these below
   static const String API_ENDPATH = "api/v2";
@@ -28,7 +28,6 @@ class AppConfig {
 
   @override
   String toString() {
-    // TODO: implement toString
     return super.toString();
   }
 }

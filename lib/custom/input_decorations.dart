@@ -7,30 +7,52 @@ class InputDecorations {
         hintText: hint_text,
         filled: true,
         fillColor: MyTheme.white,
-        hintStyle: TextStyle(fontSize: 12.0, color: MyTheme.textfield_grey),
+        hintStyle: TextStyle(fontSize: 16.0, color: MyTheme.textfield_grey),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-              color: MyTheme.noColor,
-              width: 0.2),
+            color: MyTheme.accent_color,
+          ),
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(6.0),
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: MyTheme.brick_red,
+          ),
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(6.0),
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: MyTheme.accent_color,
+          ),
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(6.0),
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: MyTheme.accent_color,
+          ),
           borderRadius: const BorderRadius.all(
             const Radius.circular(6.0),
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: MyTheme.accent_color,
-              width: 0.5),
+          borderSide: BorderSide(color: MyTheme.accent_color, width: 0.5),
           borderRadius: const BorderRadius.all(
             const Radius.circular(6.0),
           ),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.0));
+        contentPadding: EdgeInsets.symmetric(horizontal: 8.0));
   }
 
   static InputDecoration buildInputDecoration_phone({hint_text = ""}) {
     return InputDecoration(
         hintText: hint_text,
-        hintStyle: TextStyle(fontSize: 12.0, color: MyTheme.textfield_grey),
+        hintStyle: TextStyle(fontSize: 16.0, color: MyTheme.textfield_grey),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: MyTheme.textfield_grey, width: 0.5),
           borderRadius: BorderRadius.only(

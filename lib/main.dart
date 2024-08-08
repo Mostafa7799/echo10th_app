@@ -13,8 +13,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:one_context/one_context.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_value/shared_value.dart';
 import 'app_config.dart';
+import 'firebase_options.dart';
 import 'lang_config.dart';
 import 'my_theme.dart';
 import 'other_config.dart';
@@ -23,12 +23,11 @@ import 'utils/router_config.dart';
 main() async {
   print("open");
   WidgetsFlutterBinding.ensureInitialized();
-  FlutterDownloader.initialize(
-      debug: true,
-      // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl:
-          true // option: set to false to disable working with http links (default: false)
-      );
+
+  FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -40,9 +39,7 @@ main() async {
   ));
 
   runApp(
-    SharedValue.wrapApp(
-      MyApp(),
-    ),
+    MyApp(),
   );
 }
 
@@ -89,7 +86,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-   // final textTheme = Theme.of(context).textTheme;
+    // final textTheme = Theme.of(context).textTheme;
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocaleProvider()),
@@ -103,24 +100,24 @@ class _MyAppState extends State<MyApp> {
             builder: (context, child) => OneContext().builder(
               context,
               child,
-              onGenerateRoute: (route) {
-                return MaterialPageRoute(builder: (context2) {
-                  // OneContext().context = context2;
-                  return Scaffold(
-                    resizeToAvoidBottomInset: false,
-                    body: Builder(
-                      builder: (innerContext) {
-                        OneContext().context = innerContext;
-                        return child!;
-                      },
-                    ),
-                  );
-                });
-              },
-              onUnknownRoute: (route) {
-                // print("abc ${route.name}");
-                return MaterialPageRoute(builder: (context) => child!);
-              },
+              // onGenerateRoute: (route) {
+              //   return MaterialPageRoute(builder: (context2) {
+              //     // OneContext().context = context2;
+              //     return Scaffold(
+              //       resizeToAvoidBottomInset: false,
+              //       body: Builder(
+              //         builder: (innerContext) {
+              //           OneContext().context = innerContext;
+              //           return child!;
+              //         },
+              //       ),
+              //     );
+              //   });
+              // },
+              // onUnknownRoute: (route) {
+              //   // print("abc ${route.name}");
+              //   return MaterialPageRoute(builder: (context) => child!);
+              // },
             ),
             routerConfig: routes,
             title: AppConfig.app_name,
@@ -154,7 +151,6 @@ class _MyAppState extends State<MyApp> {
               }
               return const Locale('en');
             },
-
           );
         }));
   }

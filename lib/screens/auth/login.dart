@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:io' show Platform;
-import 'dart:math';
-
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/btn.dart';
 import 'package:active_ecommerce_flutter/custom/input_decorations.dart';
@@ -14,20 +10,16 @@ import 'package:active_ecommerce_flutter/repositories/auth_repository.dart';
 import 'package:active_ecommerce_flutter/repositories/profile_repository.dart';
 import 'package:active_ecommerce_flutter/screens/auth/password_forget.dart';
 import 'package:active_ecommerce_flutter/screens/auth/registration.dart';
-import 'package:active_ecommerce_flutter/screens/main.dart';
-import 'package:active_ecommerce_flutter/social_config.dart';
+
 import 'package:active_ecommerce_flutter/ui_elements/auth_ui.dart';
-import 'package:crypto/crypto.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+
 import 'package:toast/toast.dart';
-import 'package:twitter_login/twitter_login.dart';
 
 import '../../custom/loading.dart';
 import '../../repositories/address_repository.dart';
@@ -66,7 +58,6 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-  
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     super.dispose();
@@ -167,17 +158,13 @@ class _LoginState extends State<Login> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextField(
-                    controller: _emailController,
-                    autofocus: false,
-                    decoration: InputDecorations.buildInputDecoration_1(
-                        hint_text: "example@example.com"),
-                  ),
-                ],
+              TextField(
+                controller: _emailController,
+                autofocus: false,
+                decoration: InputDecorations.buildInputDecoration_1(
+                    hint_text: "example@example.com"),
               ),
+              Gutter(),
               Text(
                 AppLocalizations.of(context)!.password_ucf,
                 style: Theme.of(context).textTheme.titleMedium,
@@ -191,20 +178,29 @@ class _LoginState extends State<Login> {
                 decoration: InputDecorations.buildInputDecoration_1(
                     hint_text: "• • • • • • • •"),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return PasswordForget();
-                  }));
-                },
-                child: Text(
-                  AppLocalizations.of(context)!.login_screen_forgot_password,
-                  style: TextStyle(
-                      color: MyTheme.accent_color,
-                      fontStyle: FontStyle.italic,
-                      decoration: TextDecoration.underline),
-                ),
+              GutterSmall(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PasswordForget();
+                      }));
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!
+                          .login_screen_forgot_password,
+                      textAlign: TextAlign.end,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontStyle: FontStyle.italic,
+                          decoration: TextDecoration.underline),
+                    ),
+                  ),
+                ],
               ),
+              GutterLarge(),
               Btn.minWidthFixHeight(
                 minWidth: MediaQuery.of(context).size.width,
                 height: 50,
@@ -213,27 +209,28 @@ class _LoginState extends State<Login> {
                     borderRadius: const BorderRadius.all(Radius.circular(6.0))),
                 child: Text(
                   AppLocalizations.of(context)!.login_screen_log_in,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.white),
                 ),
                 onPressed: () {
                   onPressedLogin();
                 },
               ),
+              GutterTiny(),
               Btn.minWidthFixHeight(
                 minWidth: MediaQuery.of(context).size.width,
                 height: 50,
-                color: MyTheme.amber,
+                color: MyTheme.amber_medium,
                 shape: RoundedRectangleBorder(
                     borderRadius: const BorderRadius.all(Radius.circular(6.0))),
                 child: Text(
                   AppLocalizations.of(context)!.login_screen_sign_up,
-                  style: TextStyle(
-                      color: MyTheme.accent_color,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: MyTheme.accent_color),
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {

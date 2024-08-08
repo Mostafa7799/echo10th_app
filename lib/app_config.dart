@@ -3,7 +3,7 @@ var this_year = DateTime.now().year.toString();
 class AppConfig {
   static String copyright_text =
       "@ Echo10th " + this_year; //this shows in the splash screen
-  static String app_name = "Echo 10th"; //this shows in the splash screen
+  static String app_name = "Echo10th"; //this shows in the splash screen
 
   static String purchase_code =
       "11eda666-a748-4e77-bb7b-732ee8826800"; //enter your purchase code for the app from codecanyon

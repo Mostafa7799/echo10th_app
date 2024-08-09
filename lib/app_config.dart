@@ -18,7 +18,7 @@ class AppConfig {
   //configure this
   static const bool HTTPS = true;
 
-  static const DOMAIN_PATH = "https://new.echo10th.com"; //localhost
+  static const DOMAIN_PATH = "test.echo10th.com"; //localhost
 
   //do not configure these below
   static const String API_ENDPATH = "api/v2";

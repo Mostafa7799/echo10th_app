@@ -74,6 +74,8 @@ dependencies:
   file_picker: ^5.2.4
   
 
+  flutter_gen: any
+  path: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

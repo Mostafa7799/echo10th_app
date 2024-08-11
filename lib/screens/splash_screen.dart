@@ -1,22 +1,9 @@
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/device_info.dart';
-import 'package:active_ecommerce_flutter/helpers/addons_helper.dart';
-import 'package:active_ecommerce_flutter/helpers/auth_helper.dart';
-import 'package:active_ecommerce_flutter/helpers/business_setting_helper.dart';
-import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
-import 'package:active_ecommerce_flutter/main.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
-import 'package:active_ecommerce_flutter/presenter/currency_presenter.dart';
-import 'package:active_ecommerce_flutter/providers/locale_provider.dart';
-import 'package:active_ecommerce_flutter/screens/index.dart';
-import 'package:active_ecommerce_flutter/screens/main.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:package_info/package_info.dart';
-import 'package:provider/provider.dart';
 
-import '../helpers/system_config.dart';
-import '../helpers/system_config.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,5 +1,4 @@
 import 'package:active_ecommerce_flutter/custom/btn.dart';
-import 'package:active_ecommerce_flutter/custom/device_info.dart';
 import 'package:active_ecommerce_flutter/custom/lang_text.dart';
 import 'package:active_ecommerce_flutter/custom/toast_component.dart';
 import 'package:active_ecommerce_flutter/custom/useful_elements.dart';
@@ -105,7 +104,7 @@ class _SelectAddressState extends State<SelectAddress> {
 
     if (_seleted_shipping_address == 0) {
       ToastComponent.showDialog(
-          LangText(context).local!.choose_an_address_or_pickup_point,
+          LangText(context).local.choose_an_address_or_pickup_point,
           gravity: Toast.center,
           duration: Toast.lengthLong);
       return;
@@ -231,7 +230,7 @@ class _SelectAddressState extends State<SelectAddress> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              LangText(context).local!.to_add_or_edit_addresses_go_to_address_page,
+              LangText(context).local.to_add_or_edit_addresses_go_to_address_page,
               style: TextStyle(
                   fontSize: 14,
                   decoration: TextDecoration.underline,
@@ -254,7 +253,7 @@ class _SelectAddressState extends State<SelectAddress> {
         ),
       ),
       title: Text(
-        "${LangText(context).local!.shipping_cost_ucf}",
+        "${LangText(context).local.shipping_cost_ucf}",
         style: TextStyle(fontSize: 16, color: MyTheme.accent_color),
       ),
       elevation: 0.0,
@@ -268,7 +267,7 @@ class _SelectAddressState extends State<SelectAddress> {
           height: 100,
           child: Center(
               child: Text(
-                LangText(context).local!.you_need_to_log_in,
+                LangText(context).local.you_need_to_log_in,
                 style: TextStyle(color: MyTheme.font_grey),
               )));
     } else if (!_faceData && _shippingAddressList.length == 0) {
@@ -295,7 +294,7 @@ class _SelectAddressState extends State<SelectAddress> {
           height: 100,
           child: Center(
               child: Text(
-                LangText(context).local!.no_address_is_added,
+                LangText(context).local.no_address_is_added,
                 style: TextStyle(color: MyTheme.font_grey),
               )));
     }
@@ -351,7 +350,7 @@ class _SelectAddressState extends State<SelectAddress> {
           Container(
             width: 75,
             child: Text(
-              LangText(context).local!.phone_ucf,
+              LangText(context).local.phone_ucf,
               style: TextStyle(
                 color: MyTheme.grey_153,
               ),
@@ -380,7 +379,7 @@ class _SelectAddressState extends State<SelectAddress> {
           Container(
             width: 75,
             child: Text(
-              LangText(context).local!.postal_code,
+              LangText(context).local.postal_code,
               style: TextStyle(
                 color: MyTheme.grey_153,
               ),
@@ -409,7 +408,7 @@ class _SelectAddressState extends State<SelectAddress> {
           Container(
             width: 75,
             child: Text(
-              LangText(context).local!.country_ucf,
+              LangText(context).local.country_ucf,
               style: TextStyle(
                 color: MyTheme.grey_153,
               ),
@@ -438,7 +437,7 @@ class _SelectAddressState extends State<SelectAddress> {
           Container(
             width: 75,
             child: Text(
-              LangText(context).local!.state_ucf,
+              LangText(context).local.state_ucf,
               style: TextStyle(
                 color: MyTheme.grey_153,
               ),
@@ -467,7 +466,7 @@ class _SelectAddressState extends State<SelectAddress> {
           Container(
             width: 75,
             child: Text(
-              LangText(context).local!.city_ucf,
+              LangText(context).local.city_ucf,
               style: TextStyle(
                 color: MyTheme.grey_153,
               ),
@@ -496,7 +495,7 @@ class _SelectAddressState extends State<SelectAddress> {
           Container(
             width: 75,
             child: Text(
-              LangText(context).local!.address_ucf,
+              LangText(context).local.address_ucf,
               style: TextStyle(
                 color: MyTheme.grey_153,
               ),
@@ -552,7 +551,7 @@ class _SelectAddressState extends State<SelectAddress> {
                 borderRadius: BorderRadius.circular(0.0),
               ),
               child: Text(
-                LangText(context).local!
+                LangText(context).local
                     .continue_to_delivery_info_ucf,
                 style: TextStyle(
                     color: Colors.white,
@@ -603,7 +602,7 @@ class _SelectAddressState extends State<SelectAddress> {
     return Container(
       width: MediaQuery.of(context).size.width - 40,
       child: Text(
-        "${LangText(context).local!.shipping_info}",
+        "${LangText(context).local.shipping_info}",
         style: TextStyle(
             fontSize: 16,
             color: MyTheme.dark_font_grey,

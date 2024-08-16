@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -57,7 +57,7 @@ class HomeCarouselSlider extends StatelessWidget {
             builder: (BuildContext context) {
               return Padding(
                 padding: const EdgeInsets.only(
-                    left: 18, right: 18, top: 0, bottom: 20),
+                    left: 18, right: 18, top: 0, bottom: 10),
                 child: Stack(
                   children: <Widget>[
                     Container(

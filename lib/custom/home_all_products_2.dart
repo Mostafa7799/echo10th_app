@@ -28,7 +28,7 @@ class HomeAllProducts2 extends StatelessWidget {
           crossAxisSpacing: 14,
           itemCount: homeData!.allProductList.length,
           shrinkWrap: true,
-          padding: EdgeInsets.only(top: 20.0, bottom: 10, left: 18, right: 18),
+          padding: EdgeInsets.symmetric(horizontal: 16),
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return ProductCard(

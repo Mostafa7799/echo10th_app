@@ -16,7 +16,8 @@ import 'package:active_ecommerce_flutter/screens/common_webview_screen.dart';
 import 'package:active_ecommerce_flutter/screens/auth/login.dart';
 import 'package:active_ecommerce_flutter/screens/seller_details.dart';
 import 'package:active_ecommerce_flutter/screens/video_description_screen.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
+
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,6 @@ class _AuctionProductsDetailsState extends State<AuctionProductsDetails>
   Animation? _colorTween;
   late AnimationController _ColorAnimationController;
 
-  CarouselController _carouselController = CarouselController();
   late BuildContext loadingcontext;
 
   //init values
@@ -1841,7 +1841,7 @@ class _AuctionProductsDetailsState extends State<AuctionProductsDetails>
       );
     } else {
       return CarouselSlider(
-        carouselController: _carouselController,
+ 
         options: CarouselOptions(
             aspectRatio: 355 / 375,
             viewportFraction: 1,

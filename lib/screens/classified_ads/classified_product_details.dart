@@ -13,7 +13,7 @@ import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/screens/brand_products.dart';
 import 'package:active_ecommerce_flutter/screens/common_webview_screen.dart';
 import 'package:active_ecommerce_flutter/ui_elements/classified_product_mini_card.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _ClassifiedAdsDetailsState extends State<ClassifiedAdsDetails>
   Animation? _colorTween;
   late AnimationController _ColorAnimationController;
 
-  CarouselController _carouselController = CarouselController();
+
 
   //init values
 
@@ -1181,7 +1181,7 @@ class _ClassifiedAdsDetailsState extends State<ClassifiedAdsDetails>
       );
     } else {
       return CarouselSlider(
-        carouselController: _carouselController,
+
         options: CarouselOptions(
             aspectRatio: 355 / 375,
             viewportFraction: 1,

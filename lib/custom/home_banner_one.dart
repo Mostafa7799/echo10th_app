@@ -1,5 +1,5 @@
 import 'package:active_ecommerce_flutter/presenter/home_presenter.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -39,17 +39,13 @@ class HomeBannerOne extends StatelessWidget {
               enableInfiniteScroll: false,
               reverse: false,
               autoPlay: true,
-              onPageChanged: (index, reason) {
-                // setState(() {
-                //   homeData.current_slider = index;
-                // });
-              }),
+              onPageChanged: (index, reason) {}),
           items: homeData!.bannerOneImageList.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Padding(
                   padding: const EdgeInsets.only(
-                      left: 9.0, right: 9, top: 20.0, bottom: 20),
+                      left: 9.0, right: 9, top: 20.0, bottom: 16),
                   child: Container(
                     //color: Colors.amber,
                     width: double.infinity,

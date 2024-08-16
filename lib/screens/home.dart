@@ -1,6 +1,4 @@
-import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/box_decorations.dart';
-import 'package:active_ecommerce_flutter/custom/lang_text.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:active_ecommerce_flutter/helpers/shimmer_helper.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
@@ -13,14 +11,15 @@ import 'package:active_ecommerce_flutter/screens/top_sellers.dart';
 import 'package:active_ecommerce_flutter/ui_elements/mini_product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../custom/home_all_products_2.dart';
 import '../custom/home_banner_one.dart';
-import '../custom/home_banner_two.dart';
 import '../custom/home_carousel_slider.dart';
 import '../custom/home_search_box.dart';
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
   Home({
     Key? key,
@@ -30,7 +29,7 @@ class Home extends StatefulWidget {
   }) : super(key: key);
 
   final String? title;
-  bool show_back_button;
+  final bool show_back_button;
   late bool go_back;
 
   @override
@@ -76,12 +75,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr,
         child: SafeArea(
           child: Scaffold(
-              //key: homeData.scaffoldKey,
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(50),
                 child: buildAppBar(statusBarHeight, context),
               ),
-              //drawer: MainDrawer(),
               body: ListenableBuilder(
                   listenable: homeData,
                   builder: (context, child) {
@@ -99,90 +96,35 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             slivers: <Widget>[
                               SliverList(
                                 delegate: SliverChildListDelegate([
-                                  AppConfig.purchase_code == ""
-                                      ? Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                            9.0,
-                                            16.0,
-                                            9.0,
-                                            0.0,
-                                          ),
-                                          child: Container(
-                                            height: 140,
-                                            color: Colors.black,
-                                            child: Stack(
-                                              children: [
-                                                Positioned(
-                                                    left: 20,
-                                                    top: 0,
-                                                    child: AnimatedBuilder(
-                                                        animation: homeData
-                                                            .pirated_logo_animation,
-                                                        builder:
-                                                            (context, child) {
-                                                          return Image.asset(
-                                                            "assets/pirated_square.png",
-                                                            height: homeData
-                                                                .pirated_logo_animation
-                                                                .value,
-                                                            color: Colors.white,
-                                                          );
-                                                        })),
-                                                Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 24.0,
-                                                            left: 24,
-                                                            right: 24),
-                                                    child: Text(
-                                                      LangText(context)
-                                                          .local
-                                                          .pirated_app,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 18),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      : Container(),
                                   HomeCarouselSlider(
                                       context: context, homeData: homeData),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      18.0,
-                                      0.0,
-                                      18.0,
-                                      0.0,
-                                    ),
-                                    child: buildHomeMenuRow1(context, homeData),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.fromLTRB(
+                                  //     18.0,
+                                  //     0.0,
+                                  //     18.0,
+                                  //     0.0,
+                                  //   ),
+                                  //   child: buildHomeMenuRow1(context, homeData),
+                                  // ),
                                   HomeBannerOne(
                                       context: context, homeData: homeData),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      18.0,
-                                      0.0,
-                                      18.0,
-                                      0.0,
-                                    ),
-                                    child: buildHomeMenuRow2(context),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.fromLTRB(
+                                  //     18.0,
+                                  //     0.0,
+                                  //     18.0,
+                                  //     0.0,
+                                  //   ),
+                                  //   child: buildHomeMenuRow2(context),
+                                  // ),
                                 ]),
                               ),
                               SliverList(
                                 delegate: SliverChildListDelegate([
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      18.0,
-                                      20.0,
-                                      18.0,
-                                      0.0,
-                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -190,18 +132,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                         Text(
                                           AppLocalizations.of(context)!
                                               .featured_categories_ucf,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w700),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
                                         ),
                                       ],
                                     ),
                                   ),
                                 ]),
                               ),
+                              // Categories List
                               SliverToBoxAdapter(
                                 child: SizedBox(
-                                  height: 154,
+                                  height: 210,
                                   child: buildHomeFeaturedCategories(
                                       context, homeData),
                                 ),
@@ -209,39 +152,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               SliverList(
                                 delegate: SliverChildListDelegate([
                                   Container(
+                                    padding: EdgeInsets.all(8),
                                     color: MyTheme.accent_color,
                                     child: Stack(
                                       children: [
-                                        Container(
-                                          height: 180,
-                                          width: double.infinity,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Image.asset(
-                                                  "assets/background_1.png")
-                                            ],
-                                          ),
-                                        ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10.0,
-                                                  right: 18.0,
-                                                  left: 18.0),
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .featured_products_ucf,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .featured_products_ucf,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w700),
                                             ),
                                             buildHomeFeatureProductHorizontalList(
                                                 homeData)
@@ -252,23 +177,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   ),
                                 ]),
                               ),
-                              SliverList(
-                                delegate: SliverChildListDelegate(
-                                  [
-                                    HomeBannerTwo(
-                                        context: context, homeData: homeData),
-                                  ],
-                                ),
-                              ),
+                              // SliverList(
+                              //   delegate: SliverChildListDelegate(
+                              //     [
+                              //       HomeBannerTwo(
+                              //           context: context, homeData: homeData),
+                              //     ],
+                              //   ),
+                              // ),
                               SliverList(
                                 delegate: SliverChildListDelegate([
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      18.0,
-                                      18.0,
-                                      20.0,
-                                      0.0,
-                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16, horizontal: 8),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -276,9 +197,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                         Text(
                                           AppLocalizations.of(context)!
                                               .all_products_ucf,
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w700),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
                                         ),
                                       ],
                                     ),
@@ -292,9 +213,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    height: 80,
-                                  )
+                                  GutterLarge(),
                                 ]),
                               ),
                             ],
@@ -315,10 +234,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     if (homeData.isCategoryInitial &&
         homeData.featuredCategoryList.length == 0) {
       return ShimmerHelper().buildHorizontalGridShimmerWithAxisCount(
-          crossAxisSpacing: 14.0,
-          mainAxisSpacing: 14.0,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
           item_count: 10,
-          mainAxisExtent: 170.0,
+          mainAxisExtent: 180.0,
           controller: homeData.featuredCategoryScrollController);
     } else if (homeData.featuredCategoryList.length > 0) {
       //snapshot.hasData
@@ -329,11 +248,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           controller: homeData.featuredCategoryScrollController,
           itemCount: homeData.featuredCategoryList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 1,
               childAspectRatio: 3 / 2,
-              crossAxisSpacing: 14,
-              mainAxisSpacing: 14,
-              mainAxisExtent: 170.0),
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              mainAxisExtent: 150.0),
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
@@ -344,32 +263,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   );
                 }));
               },
-              child: Container(
-                decoration: BoxDecorations.buildBoxDecoration_1(),
-                child: Row(
+              child: Card(
+                child: Column(
                   children: <Widget>[
                     Container(
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(6), right: Radius.zero),
-                            child: FadeInImage.assetNetwork(
-                              placeholder: 'assets/placeholder.png',
-                              image:
-                                  homeData.featuredCategoryList[index].banner,
-                              fit: BoxFit.cover,
-                            ))),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          homeData.featuredCategoryList[index].name,
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                          softWrap: true,
-                          style:
-                              TextStyle(fontSize: 12, color: MyTheme.font_grey),
+                      child: ClipRRect(
+                        borderRadius:
+                            BorderRadius.horizontal(left: Radius.circular(6)),
+                        child: FadeInImage.assetNetwork(
+                          placeholder: 'assets/placeholder.png',
+                          image: homeData.featuredCategoryList[index].banner,
+                          fit: BoxFit.cover,
+                          height: 130,
+                          width: double.infinity,
                         ),
+                      ),
+                    ),
+                    GutterSmall(),
+                    Flexible(
+                      child: Text(
+                        homeData.featuredCategoryList[index].name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ],
@@ -635,7 +552,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ],
     );
   }
-
 
   AppBar buildAppBar(double statusBarHeight, BuildContext context) {
     return AppBar(

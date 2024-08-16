@@ -3,7 +3,6 @@ import 'package:active_ecommerce_flutter/screens/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:toast/toast.dart';
-
 import '../../custom/my_widget.dart';
 import '../../custom/toast_component.dart';
 import '../../custom/useful_elements.dart';

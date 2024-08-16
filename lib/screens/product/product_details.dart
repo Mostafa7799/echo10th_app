@@ -30,7 +30,7 @@ import 'package:active_ecommerce_flutter/screens/video_description_screen.dart';
 import 'package:active_ecommerce_flutter/ui_elements/list_product_card.dart';
 import 'package:active_ecommerce_flutter/ui_elements/mini_product_card.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -76,7 +76,6 @@ class _ProductDetailsState extends State<ProductDetails>
     ..enableZoom(false);
   double webViewHeight = 50.0;
 
-  CarouselController _carouselController = CarouselController();
   late BuildContext loadingcontext;
 
   //init values
@@ -300,7 +299,6 @@ class _ProductDetailsState extends State<ProductDetails>
       if (photo.variant == _variant &&
           variantResponse.variantData!.image != "") {
         _currentImage = pindex;
-        _carouselController.jumpToPage(pindex);
       }
       pindex++;
     });
@@ -2741,7 +2739,6 @@ class _ProductDetailsState extends State<ProductDetails>
       );
     } else {
       return CarouselSlider(
-        carouselController: _carouselController,
         options: CarouselOptions(
             aspectRatio: 355 / 375,
             viewportFraction: 1,

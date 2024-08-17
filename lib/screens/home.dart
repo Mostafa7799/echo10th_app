@@ -208,8 +208,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                     child: Column(
                                       children: [
                                         HomeAllProducts2(
-                                            context: context,
-                                            homeData: homeData),
+                                          context: context,
+                                          homeData: homeData,
+                                        ),
                                       ],
                                     ),
                                   ),

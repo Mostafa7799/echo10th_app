@@ -23,30 +23,27 @@ import 'package:active_ecommerce_flutter/repositories/wishlist_repository.dart';
 import 'package:active_ecommerce_flutter/screens/brand_products.dart';
 import 'package:active_ecommerce_flutter/screens/cart.dart';
 import 'package:active_ecommerce_flutter/screens/chat/chat.dart';
-import 'package:active_ecommerce_flutter/screens/common_webview_screen.dart';
-import 'package:active_ecommerce_flutter/screens/product/product_reviews.dart';
 import 'package:active_ecommerce_flutter/screens/seller_details.dart';
-import 'package:active_ecommerce_flutter/screens/video_description_screen.dart';
 import 'package:active_ecommerce_flutter/ui_elements/list_product_card.dart';
 import 'package:active_ecommerce_flutter/ui_elements/mini_product_card.dart';
-import 'package:badges/badges.dart' as badges;
+import 'package:active_ecommerce_flutter/widgets/product_widget/rating_widget.dart';
+import 'package:active_ecommerce_flutter/widgets/product_widget/share_icon_widget.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
-import 'package:social_share/social_share.dart';
 import 'package:toast/toast.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../widgets/product_widget/cart_icon_button.dart';
+
 class ProductDetails extends StatefulWidget {
-  String slug;
+  final String slug;
 
   ProductDetails({Key? key, required this.slug}) : super(key: key);
 
@@ -56,7 +53,6 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails>
     with TickerProviderStateMixin {
-  bool _showCopied = false;
   String? _appbarPriceString = ". . .";
   int _currentImage = 0;
   ScrollController _mainScrollController =
@@ -70,6 +66,7 @@ class _ProductDetailsState extends State<ProductDetails>
   double _scrollPosition = 0.0;
 
   Animation? _colorTween;
+
   late AnimationController _ColorAnimationController;
   WebViewController controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -139,16 +136,6 @@ class _ProductDetailsState extends State<ProductDetails>
     fetchAll();
     super.initState();
   }
-
-  // @override
-  // void dispose() {
-  //   _mainScrollController.dispose();
-  //   _variantScrollController.dispose();
-  //   _imageScrollController.dispose();
-  //   _colorScrollController.dispose();
-  //   _ColorAnimationController.dispose();
-  //   super.dispose();
-  // }
 
   fetchAll() {
     fetchProductDetails();
@@ -359,25 +346,12 @@ class _ProductDetailsState extends State<ProductDetails>
   }
 
   addToCart({mode, BuildContext? context, snackbar = null}) async {
-    // if (is_logged_in.$ == false) {
-    //   // ToastComponent.showDialog(AppLocalizations.of(context).common_login_warning, context,
-    //   //     gravity: Toast.center, duration: Toast.lengthLong);
-    //   //Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
-    //   context?.go("/users/login");
-    //   return;
-    // }
-
     if (!guest_checkout_status.$) {
       if (is_logged_in.$ == false) {
         context?.go("/users/login");
         return;
       }
     }
-
-    // print(widget.slug);
-    // print(_variant);
-    // print(user_id.$);
-    // print(_quantity);
 
     var cartAddResponse = await CartRepository().getCartAddResponse(
         _productDetails!.id, _variant, user_id.$, _quantity);
@@ -411,126 +385,6 @@ class _ProductDetailsState extends State<ProductDetails>
   onPopped(value) async {
     reset();
     fetchAll();
-  }
-
-  onCopyTap(setState) {
-    setState(() {
-      _showCopied = true;
-    });
-    Timer timer = Timer(Duration(seconds: 3), () {
-      setState(() {
-        _showCopied = false;
-      });
-    });
-  }
-
-  onPressShare(context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return StatefulBuilder(builder: (context, StateSetter setState) {
-            return AlertDialog(
-              insetPadding: EdgeInsets.symmetric(horizontal: 10),
-              contentPadding: EdgeInsets.only(
-                  top: 36.0, left: 36.0, right: 36.0, bottom: 2.0),
-              content: Container(
-                width: 400,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Btn.minWidthFixHeight(
-                          minWidth: 75,
-                          height: 26,
-                          color: Color.fromRGBO(253, 253, 253, 1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                              side:
-                                  BorderSide(color: Colors.black, width: 1.0)),
-                          child: Text(
-                            AppLocalizations.of(context)!.copy_product_link_ucf,
-                            style: TextStyle(
-                              color: MyTheme.medium_grey,
-                            ),
-                          ),
-                          onPressed: () {
-                            onCopyTap(setState);
-                            Clipboard.setData(ClipboardData(
-                                text: _productDetails!.link ?? ""));
-                            // SocialShare.copyToClipboard(
-                            //     text: _productDetails!.link, image: "");
-                          },
-                        ),
-                      ),
-                      _showCopied
-                          ? Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Text(
-                                AppLocalizations.of(context)!.copied_ucf,
-                                style: TextStyle(
-                                    color: MyTheme.medium_grey, fontSize: 12),
-                              ),
-                            )
-                          : Container(),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Btn.minWidthFixHeight(
-                          minWidth: 75,
-                          height: 26,
-                          color: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                              side:
-                                  BorderSide(color: Colors.black, width: 1.0)),
-                          child: Text(
-                            AppLocalizations.of(context)!.share_options_ucf,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () {
-                            SocialShare.shareOptions(_productDetails!.link!);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: app_language_rtl.$!
-                          ? EdgeInsets.only(left: 8.0)
-                          : EdgeInsets.only(right: 8.0),
-                      child: Btn.minWidthFixHeight(
-                        minWidth: 75,
-                        height: 30,
-                        color: Color.fromRGBO(253, 253, 253, 1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(
-                                color: MyTheme.font_grey, width: 1.0)),
-                        child: Text(
-                          LangText(context).local.close_all_capital,
-                          style: TextStyle(
-                            color: MyTheme.font_grey,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).pop();
-                        },
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            );
-          });
-        });
   }
 
   onTapSellerChat() {
@@ -770,9 +624,9 @@ class _ProductDetailsState extends State<ProductDetails>
     });
   }
 
+////................................................................
   @override
   Widget build(BuildContext context) {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
     SnackBar _addedToCartSnackbar = SnackBar(
       content: Text(
         AppLocalizations.of(context)!.added_to_cart,
@@ -800,7 +654,6 @@ class _ProductDetailsState extends State<ProductDetails>
       child: Scaffold(
           extendBody: true,
           bottomNavigationBar: buildBottomAppBar(context, _addedToCartSnackbar),
-          //appBar: buildAppBar(statusBarHeight, context),
           body: RefreshIndicator(
             color: MyTheme.accent_color,
             backgroundColor: Colors.white,
@@ -808,14 +661,14 @@ class _ProductDetailsState extends State<ProductDetails>
             child: CustomScrollView(
               controller: _mainScrollController,
               physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              slivers: <Widget>[
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              slivers: [
                 SliverAppBar(
                   elevation: 0,
                   backgroundColor: Colors.white.withOpacity(opacity),
                   pinned: true,
                   automaticallyImplyLeading: false,
-                  //titleSpacing: 0,
                   title: Row(
                     children: [
                       Builder(
@@ -854,68 +707,18 @@ class _ProductDetailsState extends State<ProductDetails>
                                     fontWeight: FontWeight.bold),
                               ))),
                       Spacer(),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return Cart(has_bottomnav: false);
-                          })).then((value) {
-                            onPopped(value);
-                          });
+                      CartIconButton(
+                        onPopped: (value) {
+                          onPopped(value);
                         },
-                        child: Container(
-                          decoration:
-                              BoxDecorations.buildCircularButtonDecoration_1(),
-                          width: 36,
-                          height: 36,
-                          padding: EdgeInsets.all(8),
-                          child: badges.Badge(
-                            badgeStyle: badges.BadgeStyle(
-                              shape: badges.BadgeShape.circle,
-                              badgeColor: MyTheme.accent_color,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            badgeAnimation: badges.BadgeAnimation.slide(
-                              toAnimate: true,
-                            ),
-                            stackFit: StackFit.loose,
-                            child: Image.asset(
-                              "assets/cart.png",
-                              color: MyTheme.dark_font_grey,
-                              height: 16,
-                            ),
-                            badgeContent: Consumer<CartCounter>(
-                              builder: (context, cart, child) {
-                                return Text(
-                                  "${cart.cartCounter}",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.white),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
                       ),
-                      SizedBox(width: 15),
-                      InkWell(
-                        onTap: () {
-                          onPressShare(context);
-                        },
-                        child: Container(
-                          decoration:
-                              BoxDecorations.buildCircularButtonDecoration_1(),
-                          width: 36,
-                          height: 36,
-                          child: Center(
-                            child: Icon(
-                              Icons.share_outlined,
-                              color: MyTheme.dark_font_grey,
-                              size: 16,
-                            ),
-                          ),
-                        ),
+
+                      Gutter(),
+                      ShareIconWidget(
+                        productDetails: _productDetails,
                       ),
-                      SizedBox(width: 15),
+
+                      Gutter(),
                       InkWell(
                         onTap: () {
                           onWishTap();
@@ -1126,276 +929,6 @@ class _ProductDetailsState extends State<ProductDetails>
                             ],
                           ),
                         ),
-                        if (_productDetails?.downloads != null)
-                          Column(
-                            children: [
-                              divider(),
-                              InkWell(
-                                onTap: () async {
-                                  print(_productDetails?.downloads);
-                                  var url = Uri.parse(
-                                      _productDetails?.downloads ?? "");
-                                  print(url);
-                                  launchUrl(url,
-                                      mode: LaunchMode.externalApplication);
-                                },
-                                child: Container(
-                                  color: MyTheme.white,
-                                  height: 48,
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      18.0,
-                                      14.0,
-                                      18.0,
-                                      14.0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          AppLocalizations.of(context)!
-                                              .downloads_ucf,
-                                          style: TextStyle(
-                                              color: MyTheme.dark_font_grey,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        Spacer(),
-                                        Image.asset(
-                                          "assets/arrow.png",
-                                          height: 11,
-                                          width: 20,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        divider(),
-                        InkWell(
-                          onTap: () {
-                            if (_productDetails!.video_link == "") {
-                              ToastComponent.showDialog(
-                                  AppLocalizations.of(context)!
-                                      .video_not_available,
-                                  gravity: Toast.center,
-                                  duration: Toast.lengthLong);
-                              return;
-                            }
-
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return VideoDescription(
-                                url: _productDetails!.video_link,
-                              );
-                            })).then((value) {
-                              onPopped(value);
-                            });
-                          },
-                          child: Container(
-                            color: MyTheme.white,
-                            height: 48,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                18.0,
-                                14.0,
-                                18.0,
-                                14.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.video_ucf,
-                                    style: TextStyle(
-                                        color: MyTheme.dark_font_grey,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/arrow.png",
-                                    height: 11,
-                                    width: 20,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        divider(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return ProductReviews(id: _productDetails!.id);
-                            })).then((value) {
-                              onPopped(value);
-                            });
-                          },
-                          child: Container(
-                            color: MyTheme.white,
-                            height: 48,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                18.0,
-                                14.0,
-                                18.0,
-                                14.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.reviews_ucf,
-                                    style: TextStyle(
-                                        color: MyTheme.dark_font_grey,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/arrow.png",
-                                    height: 11,
-                                    width: 20,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        divider(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CommonWebviewScreen(
-                                url:
-                                    "${AppConfig.RAW_BASE_URL}/mobile-page/seller-policy",
-                                page_name: AppLocalizations.of(context)!
-                                    .seller_policy_ucf,
-                              );
-                            }));
-                          },
-                          child: Container(
-                            color: MyTheme.white,
-                            height: 48,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                18.0,
-                                14.0,
-                                18.0,
-                                14.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .seller_policy_ucf,
-                                    style: TextStyle(
-                                        color: MyTheme.dark_font_grey,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/arrow.png",
-                                    height: 11,
-                                    width: 20,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        divider(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CommonWebviewScreen(
-                                url:
-                                    "${AppConfig.RAW_BASE_URL}/mobile-page/return-policy",
-                                page_name: AppLocalizations.of(context)!
-                                    .return_policy_ucf,
-                              );
-                            }));
-                          },
-                          child: Container(
-                            color: MyTheme.white,
-                            height: 48,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                18.0,
-                                14.0,
-                                18.0,
-                                14.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .return_policy_ucf,
-                                    style: TextStyle(
-                                        color: MyTheme.dark_font_grey,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/arrow.png",
-                                    height: 11,
-                                    width: 20,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        divider(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CommonWebviewScreen(
-                                url:
-                                    "${AppConfig.RAW_BASE_URL}/mobile-page/support-policy",
-                                page_name: AppLocalizations.of(context)!
-                                    .support_policy_ucf,
-                              );
-                            }));
-                          },
-                          child: Container(
-                            color: MyTheme.white,
-                            height: 48,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                18.0,
-                                14.0,
-                                18.0,
-                                14.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .support_policy_ucf,
-                                    style: TextStyle(
-                                        color: MyTheme.dark_font_grey,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/arrow.png",
-                                    height: 11,
-                                    width: 20,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        divider(),
                       ]),
                 ),
                 SliverList(
@@ -1795,15 +1328,6 @@ class _ProductDetailsState extends State<ProductDetails>
                               index),
                         ))),
               ),
-
-              /*ListView.builder(
-                itemCount: choice_options[choice_options_index].options.length,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return
-                },
-              ),*/
             ),
           )
         ],
@@ -2116,16 +1640,8 @@ class _ProductDetailsState extends State<ProductDetails>
       ),
       elevation: 0.0,
       titleSpacing: 0,
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-          child: IconButton(
-            icon: Icon(Icons.share_outlined, color: MyTheme.dark_grey),
-            onPressed: () {
-              onPressShare(context);
-            },
-          ),
-        ),
+      actions: [
+        ShareIconWidget(),
       ],
     );
   }
@@ -2149,23 +1665,15 @@ class _ProductDetailsState extends State<ProductDetails>
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.0),
                 color: MyTheme.accent_color,
-                boxShadow: [
-                  BoxShadow(
-                    color: MyTheme.accent_color_shadow,
-                    blurRadius: 20,
-                    spreadRadius: 0.0,
-                    offset: Offset(0.0, 10.0), // shadow direction: bottom right
-                  )
-                ],
               ),
               height: 50,
               child: Center(
                 child: Text(
                   AppLocalizations.of(context)!.add_to_cart_ucf,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: MyTheme.white),
                 ),
               ),
             ),
@@ -2182,82 +1690,26 @@ class _ProductDetailsState extends State<ProductDetails>
               height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.0),
-                color: MyTheme.golden,
-                boxShadow: [
-                  BoxShadow(
-                    color: MyTheme.golden_shadow,
-                    blurRadius: 20,
-                    spreadRadius: 0.0,
-                    offset: Offset(0.0, 10.0), // shadow direction: bottom right
-                  )
-                ],
+                color: MyTheme.blue_chill,
               ),
               child: Center(
                 child: Text(
                   AppLocalizations.of(context)!.buy_now_ucf,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.white),
                 ),
               ),
             ),
           ),
         )
-        /*Container(
-          color: Colors.white.withOpacity(0.95),
-          height: 83,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 18,
-              ),
-
-              SizedBox(
-                width: 14,
-              ),
-
-              SizedBox(
-                width: 18,
-              ),
-            ],
-          ),
-        )*/
       ],
     );
   }
 
   buildRatingAndWishButtonRow() {
-    return Row(
-      children: [
-        RatingBar(
-          itemSize: 15.0,
-          ignoreGestures: true,
-          initialRating: double.parse(_productDetails!.rating.toString()),
-          direction: Axis.horizontal,
-          allowHalfRating: false,
-          itemCount: 5,
-          ratingWidget: RatingWidget(
-            full: Icon(Icons.star, color: Colors.amber),
-            half: Icon(Icons.star_half, color: Colors.amber),
-            empty: Icon(Icons.star, color: Color.fromRGBO(224, 224, 225, 1)),
-          ),
-          itemPadding: EdgeInsets.only(right: 1.0),
-          onRatingUpdate: (rating) {
-            //print(rating);
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: Text(
-            "(" + _productDetails!.rating_count.toString() + ")",
-            style: TextStyle(
-                color: Color.fromRGBO(152, 152, 153, 1), fontSize: 10),
-          ),
-        ),
-      ],
-    );
+    return CustomRatingWidget(productDetails: _productDetails!);
   }
 
   buildShippingTime() {
@@ -2303,14 +1755,7 @@ class _ProductDetailsState extends State<ProductDetails>
                     width: 75,
                     child: Text(
                       AppLocalizations.of(context)!.brand_ucf,
-                      style: TextStyle(
-                          color: Color.fromRGBO(
-                            153,
-                            153,
-                            153,
-                            1,
-                          ),
-                          fontSize: 10),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ),
@@ -2318,30 +1763,9 @@ class _ProductDetailsState extends State<ProductDetails>
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: Text(
                     _productDetails!.brand!.name!,
-                    style: TextStyle(
-                        color: MyTheme.font_grey,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ),
-                /*Spacer(),
-                Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                        color: Color.fromRGBO(112, 112, 112, .3), width: 1),
-                    //shape: BoxShape.rectangle,
-                  ),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: 'assets/placeholder.png',
-                        image: _productDetails!.brand.logo,
-                        fit: BoxFit.contain,
-                      )),
-                ),*/
               ],
             ),
           )
@@ -2567,8 +1991,7 @@ class _ProductDetailsState extends State<ProductDetails>
             if (_quantity! > 1) {
               _quantity = _quantity! - 1;
               setState(() {});
-              // calculateTotalPrice();
-              // fetchVariantPrice();
+
               fetchAndSetVariantWiseInfo();
             }
           }));

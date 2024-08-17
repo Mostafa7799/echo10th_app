@@ -1,23 +1,21 @@
-import 'package:active_ecommerce_flutter/custom/box_decorations.dart';
 import 'package:active_ecommerce_flutter/helpers/system_config.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/screens/product/product_details.dart';
 import 'package:flutter/material.dart';
-
 import '../helpers/shared_value_helper.dart';
 import '../screens/auction/auction_products_details.dart';
 
 class ProductCard extends StatefulWidget {
-  var identifier;
-  int? id;
-  String slug;
-  String? image;
-  String? name;
-  String? main_price;
-  String? stroked_price;
-  bool? has_discount;
-  bool? is_wholesale;
-  var discount;
+  final identifier;
+  final int? id;
+  final String slug;
+  final String? image;
+  final String? name;
+  final String? main_price;
+  final String? stroked_price;
+  final bool? has_discount;
+  final bool? is_wholesale;
+  final discount;
 
   ProductCard({
     Key? key,
@@ -56,8 +54,8 @@ class _ProductCardState extends State<ProductCard> {
           ),
         );
       },
-      child: Container(
-        decoration: BoxDecorations.buildBoxDecoration_1().copyWith(),
+      child: Card(
+        // decoration: BoxDecorations.buildBoxDecoration_1().copyWith(),
         child: Stack(
           children: [
             Column(children: <Widget>[
@@ -84,16 +82,12 @@ class _ProductCardState extends State<ProductCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
                         widget.name!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: TextStyle(
-                            color: MyTheme.font_grey,
-                            fontSize: 14,
-                            height: 1.2,
-                            fontWeight: FontWeight.w400),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     widget.has_discount!
@@ -129,10 +123,7 @@ class _ProductCardState extends State<ProductCard> {
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(
-                            color: MyTheme.accent_color,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ],

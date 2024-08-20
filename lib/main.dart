@@ -57,20 +57,10 @@ class _MyAppState extends State<MyApp> {
       // print("objectobject");
     });
 
-    /*bc = Widget Function(context,Container(),onGenerateRoute: (route){
-      print("data ${route.name}");
-      return MaterialPageRoute(builder:(context)=> Container());
-    },onUnknownRoute: (route){
-      print("data2 ${route.name}");
-      return MaterialPageRoute(builder:(context)=> Container());
-    },
-      initialRoute: "/"
-    );*/
     routes.routeInformationProvider.addListener(() {
       // print("123123");
     });
     super.initState();
-    //print("Type of ${bc.runtimeType}");
     Future.delayed(Duration.zero).then(
       (value) async {
         Firebase.initializeApp().then((value) {
@@ -100,7 +90,6 @@ class _MyAppState extends State<MyApp> {
             builder: (context, child) => OneContext().builder(
               context,
               child,
-      
             ),
             routerConfig: routes,
             title: AppConfig.app_name,
@@ -108,11 +97,13 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primaryColor: MyTheme.white,
               scaffoldBackgroundColor: MyTheme.backgroundColor,
+              appBarTheme: AppBarTheme(
+                color: MyTheme.backgroundColor,
+                elevation: 0,
+              ),
               visualDensity: VisualDensity.adaptivePlatformDensity,
               fontFamily: "PublicSansSerif",
-              
               textTheme: MyTheme.textTheme1,
-        
               fontFamilyFallback: ['NotoSans'],
             ),
             localizationsDelegates: [

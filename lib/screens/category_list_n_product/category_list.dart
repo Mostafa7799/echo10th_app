@@ -1,6 +1,4 @@
 import 'package:active_ecommerce_flutter/custom/btn.dart';
-import 'package:active_ecommerce_flutter/custom/device_info.dart';
-import 'package:active_ecommerce_flutter/custom/useful_elements.dart';
 import 'package:active_ecommerce_flutter/data_model/category_response.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:active_ecommerce_flutter/helpers/shimmer_helper.dart';
@@ -39,24 +37,8 @@ class _CategoryListState extends State<CategoryList> {
       textDirection:
           app_language_rtl.$! ? TextDirection.rtl : TextDirection.ltr,
       child: Stack(children: [
-        Container(
-          height: DeviceInfo(context).height! / 4,
-          width: DeviceInfo(context).width,
-          color: MyTheme.accent_color,
-          alignment: Alignment.topRight,
-          child: Image.asset(
-            "assets/background_1.png",
-          ),
-        ),
         Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: PreferredSize(
-            child: buildAppBar(context),
-            preferredSize: Size(
-              DeviceInfo(context).width!,
-              50,
-            ),
-          ),
+          appBar: buildAppBar(context),
           body: buildBody(),
         ),
         Align(
@@ -91,29 +73,9 @@ class _CategoryListState extends State<CategoryList> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
-      leading: widget.is_base_category
-          ? Builder(
-              builder: (context) => Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                child: UsefulElements.backToMain(context,
-                    go_back: false, color: "white"),
-              ),
-            )
-          : Builder(
-              builder: (context) => IconButton(
-                icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.white),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ),
       title: Text(
         getAppBarTitle(),
-        style: TextStyle(
-            fontSize: 16, color: MyTheme.white, fontWeight: FontWeight.bold),
       ),
-      elevation: 0.0,
-      titleSpacing: 0,
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -26,7 +27,11 @@ class _CustomRatingWidgetState extends State<CustomRatingWidget> {
           ratingWidget: RatingWidget(
             full: Icon(Icons.star, color: Colors.amber),
             half: Icon(Icons.star_half, color: Colors.amber),
-            empty: Icon(Icons.star, color: Color.fromRGBO(224, 224, 225, 1)),
+            empty: Icon(
+              Icons.star,
+              color: MyTheme.blue_grey,
+              size: 20,
+            ),
           ),
           itemPadding: EdgeInsets.only(right: 1.0),
           onRatingUpdate: (rating) {

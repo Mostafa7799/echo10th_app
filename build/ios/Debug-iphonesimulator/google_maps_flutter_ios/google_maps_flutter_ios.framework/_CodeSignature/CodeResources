@@ -4,45 +4,69 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/FGMClusterManagersController.h</key>
+		<data>
+		ZZxSZYDiAcH/cmzZ4AuZXXExzYk=
+		</data>
+		<key>Headers/FGMMarkerUserData.h</key>
+		<data>
+		wDVqAdG5SkwQXYcDrSlxkZuu0Eg=
+		</data>
+		<key>Headers/FLTGoogleMapHeatmapController.h</key>
+		<data>
+		V8+jUeAWpKfCVaJONCP5fsPnVr0=
+		</data>
 		<key>Headers/FLTGoogleMapJSONConversions.h</key>
 		<data>
-		+XgOF7+7sER6ig5opBjiOMS/tLU=
+		oRRHXX8CvKkW4B0oZrLk+7o1YaQ=
 		</data>
 		<key>Headers/FLTGoogleMapTileOverlayController.h</key>
 		<data>
-		5DuBNj8IH5Ry9TWzYp12qy0QIBs=
+		nq9t8CDVR7zCZXXHZGBRKPhVLTs=
 		</data>
 		<key>Headers/FLTGoogleMapsPlugin.h</key>
 		<data>
-		hgNwKew8K643KfD7Xxi5nz1ILVg=
+		MtdePiy4aQWYv2kQV+pMyw1E/Ug=
 		</data>
 		<key>Headers/GoogleMapCircleController.h</key>
 		<data>
-		9vZ0odIpYFtdx1HZsqzsKTKpNzs=
+		9W/AshIpazuYlWnQE5KEMbRkP7Q=
 		</data>
 		<key>Headers/GoogleMapController.h</key>
 		<data>
-		PRxeM05GPJMiYVHVW0LG9QfHqJU=
+		Yl+QwP16p02u5aVvNqNiYGhUhLQ=
 		</data>
 		<key>Headers/GoogleMapController_Test.h</key>
 		<data>
-		xKtSqYuVI2YfxE9gqpVvKCXbCKE=
+		gSSDJpz0S2heR7TaOKs1wob1U/0=
 		</data>
 		<key>Headers/GoogleMapMarkerController.h</key>
 		<data>
-		Gv0j6v4AGFS8V/Jv6aQA/sde1do=
+		p4BVBoi+Po2M9Or+MUg3qwZDiA8=
+		</data>
+		<key>Headers/GoogleMapMarkerController_Test.h</key>
+		<data>
+		75/ce+JA0bcS59n0y0IUYvz+m0k=
 		</data>
 		<key>Headers/GoogleMapPolygonController.h</key>
 		<data>
-		0leJIxrUiw+f1oAmfS4yu4LhgpM=
+		eSEdiUqa/VQT856XVgcoXn/3PrQ=
 		</data>
 		<key>Headers/GoogleMapPolylineController.h</key>
 		<data>
-		kZP6MoaOQrH7aZRGnEhfHL4a5oo=
+		HdQKVcc7mfXsDRfmLGiEd3ZUNo4=
+		</data>
+		<key>Headers/GoogleMapPolylineController_Test.h</key>
+		<data>
+		7vWBGfN6tml7y22X9bdSJwKUllA=
 		</data>
 		<key>Headers/google_maps_flutter_ios-umbrella.h</key>
 		<data>
-		AZ3lw0hmX9DDFOB3sz/MiAwUW+0=
+		DuZ39noF0XFfY+RnERgw6MfLHVM=
+		</data>
+		<key>Headers/messages.g.h</key>
+		<data>
+		2GAuy55Vvtgsu7oxEUlvIU/M4AM=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -50,130 +74,196 @@
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		9FD4Xj1s6KvvtvCRGOCzN34h+q8=
+		MR8mbRNeo9L09yaWh4jMP7bZjnc=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/FGMClusterManagersController.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZZxSZYDiAcH/cmzZ4AuZXXExzYk=
+			</data>
+			<key>hash2</key>
+			<data>
+			7C20cJ4HV1Ue8m0RLnSLT7yS5IkDRgwyY5TwlGIKWIw=
+			</data>
+		</dict>
+		<key>Headers/FGMMarkerUserData.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wDVqAdG5SkwQXYcDrSlxkZuu0Eg=
+			</data>
+			<key>hash2</key>
+			<data>
+			HbfPgblYNzGwduSrRiecQvrsTwxB0y5jfi4UOpBRc3o=
+			</data>
+		</dict>
+		<key>Headers/FLTGoogleMapHeatmapController.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			V8+jUeAWpKfCVaJONCP5fsPnVr0=
+			</data>
+			<key>hash2</key>
+			<data>
+			/Efgl6auUd1tsTZyJzdL6sh8PQDK+bJeDHvrxYF71Hs=
+			</data>
+		</dict>
 		<key>Headers/FLTGoogleMapJSONConversions.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+XgOF7+7sER6ig5opBjiOMS/tLU=
+			oRRHXX8CvKkW4B0oZrLk+7o1YaQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			wR3P453NUG2M/hQC5GDEiiHnAWJHkgztklxWGFsA5VQ=
+			TFEJT1kv6dja1ZKUg4I1cwMv8xpJdykxgO2fgZlYU1k=
 			</data>
 		</dict>
 		<key>Headers/FLTGoogleMapTileOverlayController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5DuBNj8IH5Ry9TWzYp12qy0QIBs=
+			nq9t8CDVR7zCZXXHZGBRKPhVLTs=
 			</data>
 			<key>hash2</key>
 			<data>
-			b6tj8vcluIhr1WV8skHzE1viTcbPMl2Iq5wzvkgaqF4=
+			OhQZyp/X3oRmk1tIORRCoWZmmKNyJeA+ZeiEthWF25U=
 			</data>
 		</dict>
 		<key>Headers/FLTGoogleMapsPlugin.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hgNwKew8K643KfD7Xxi5nz1ILVg=
+			MtdePiy4aQWYv2kQV+pMyw1E/Ug=
 			</data>
 			<key>hash2</key>
 			<data>
-			HkTalPTnOJjCLgyZw5eLT3fkq6qk110wa+tOUZ2C3CY=
+			4N7y0Vd5yv9Ucu79I1sbJ0s1UZTu+2dgeQGRNXVzKYg=
 			</data>
 		</dict>
 		<key>Headers/GoogleMapCircleController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9vZ0odIpYFtdx1HZsqzsKTKpNzs=
+			9W/AshIpazuYlWnQE5KEMbRkP7Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			A8GQZZKhphlBa6C0EqkB7jsO7o1J8wm6Q3H4nx/sFCU=
+			8aLb7TrZNENpU31Ve/OtzEx1KbtqKvm1xjfqSaaS8oo=
 			</data>
 		</dict>
 		<key>Headers/GoogleMapController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			PRxeM05GPJMiYVHVW0LG9QfHqJU=
+			Yl+QwP16p02u5aVvNqNiYGhUhLQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			aCjFErsa9UcnwxKbUhzsOw+riJSPdyn4gNocNUMBZXA=
+			6cb9TWB5fTF5h0GBO0rctDTBZkU5joqZlGxULtwYS4o=
 			</data>
 		</dict>
 		<key>Headers/GoogleMapController_Test.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			xKtSqYuVI2YfxE9gqpVvKCXbCKE=
+			gSSDJpz0S2heR7TaOKs1wob1U/0=
 			</data>
 			<key>hash2</key>
 			<data>
-			w0ZL+GvDxM71usHv19DrtBCzT7mRFm/GullcoLW7Y8Y=
+			L914sMi5HjV/ogpGOcwjoEUCLmzKwNffFAO8Zmqdi5w=
 			</data>
 		</dict>
 		<key>Headers/GoogleMapMarkerController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Gv0j6v4AGFS8V/Jv6aQA/sde1do=
+			p4BVBoi+Po2M9Or+MUg3qwZDiA8=
 			</data>
 			<key>hash2</key>
 			<data>
-			NX3wiE8OMGjyoV1JzKoP4YFPIVijdrKiL4xxEedGW5M=
+			VkFym9fKhuH9cgkrVFskpCNRdMUqVilvY8il8QURDDw=
+			</data>
+		</dict>
+		<key>Headers/GoogleMapMarkerController_Test.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			75/ce+JA0bcS59n0y0IUYvz+m0k=
+			</data>
+			<key>hash2</key>
+			<data>
+			+qr9NCEwYZ1vZriGjpqrvRS8MGDTgVxwFAD1vrO2NH4=
 			</data>
 		</dict>
 		<key>Headers/GoogleMapPolygonController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			0leJIxrUiw+f1oAmfS4yu4LhgpM=
+			eSEdiUqa/VQT856XVgcoXn/3PrQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			jhnSsBt6+ADbKTByDv0fkUItqbWu+3jFQaE1xMIvdvo=
+			X20kJmtn+1AGImOErK3N9Y6C1V7G743WNaUr+S0O6UA=
 			</data>
 		</dict>
 		<key>Headers/GoogleMapPolylineController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			kZP6MoaOQrH7aZRGnEhfHL4a5oo=
+			HdQKVcc7mfXsDRfmLGiEd3ZUNo4=
 			</data>
 			<key>hash2</key>
 			<data>
-			EA4tA4bbLb4CUcTDUj+2b2cfuXhKhutI9uenWjKBiHw=
+			P4x2wGRbBU2wsOIlgNUrR2jJGLU3pUkBfqEoyUiVyuw=
+			</data>
+		</dict>
+		<key>Headers/GoogleMapPolylineController_Test.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7vWBGfN6tml7y22X9bdSJwKUllA=
+			</data>
+			<key>hash2</key>
+			<data>
+			hxrdtYtO880yln/5AnKZi2GYGO10MZeQACJQrg6hQQQ=
 			</data>
 		</dict>
 		<key>Headers/google_maps_flutter_ios-umbrella.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			AZ3lw0hmX9DDFOB3sz/MiAwUW+0=
+			DuZ39noF0XFfY+RnERgw6MfLHVM=
 			</data>
 			<key>hash2</key>
 			<data>
-			PNvhZvgv34AWgXn23bdFbGpI7QmclPHNWYXzo4Jcops=
+			p5zTBH5LCO6nCCHcFDRh48fP2ppGI70IRlszLsdv0IM=
+			</data>
+		</dict>
+		<key>Headers/messages.g.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2GAuy55Vvtgsu7oxEUlvIU/M4AM=
+			</data>
+			<key>hash2</key>
+			<data>
+			CDcL0G2UCYNF8zj4IAIX/uRnzandzCB2VaCv3ceq7M0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9FD4Xj1s6KvvtvCRGOCzN34h+q8=
+			MR8mbRNeo9L09yaWh4jMP7bZjnc=
 			</data>
 			<key>hash2</key>
 			<data>
-			YykVmn4SHbI6XCIHxn7RQqocV4/mXkpHXJNfPtAmlno=
+			7fspqg48Cioz7i9A4WnygV1wHzdcD/1I5bSW2HFERIU=
 			</data>
 		</dict>
 	</dict>

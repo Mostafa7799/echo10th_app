@@ -283,7 +283,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 
-
 @protocol FlutterPluginRegistrar;
 
 SWIFT_CLASS("_TtC16url_launcher_ios17URLLauncherPlugin")
@@ -585,7 +584,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
-
 
 @protocol FlutterPluginRegistrar;
 

@@ -54,15 +54,9 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return CustomSplashScreen(
-      //comment this
       seconds: 3,
-
-
-      //comment this
       navigateAfterSeconds: Main(),
 
-
-      //navigateAfterFuture: loadFromFuture(), //uncomment this
       title: Text(
         "V " + _packageInfo.version,
         style: TextStyle(
@@ -77,7 +71,7 @@ class _SplashState extends State<Splash> {
           color: Colors.white,
         ),
       ),
-      image: Image.asset("assets/splash_screen_logo.png"),
+      image: Image.asset("assets/app_logo.png"),
       backgroundImage:
           Image.asset("assets/splash_login_registration_background_image.png"),
       backgroundColor: MyTheme.splash_screen_color,

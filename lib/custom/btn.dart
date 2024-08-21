@@ -33,7 +33,7 @@ class Btn {
       style: TextButton.styleFrom(
           foregroundColor: MyTheme.noColor,
           minimumSize: Size(minWidth.toDouble(), height.toDouble()),
-          backgroundColor: onPressed != null ? color : MyTheme.grey_153,
+          backgroundColor: color != null ? color : MyTheme.grey_153,
           shape: shape,
           disabledForegroundColor: Colors.blue),
       child: child,

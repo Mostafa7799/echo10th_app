@@ -1,9 +1,7 @@
-import 'dart:io';
 
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/btn.dart';
 import 'package:active_ecommerce_flutter/custom/device_info.dart';
-import 'package:active_ecommerce_flutter/custom/google_recaptcha.dart';
 import 'package:active_ecommerce_flutter/custom/input_decorations.dart';
 import 'package:active_ecommerce_flutter/custom/intl_phone_input.dart';
 import 'package:active_ecommerce_flutter/custom/toast_component.dart';
@@ -21,6 +19,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:toast/toast.dart';
@@ -37,13 +36,9 @@ class Registration extends StatefulWidget {
 class _RegistrationState extends State<Registration> {
   String _register_by = "email"; //phone or email
   String initialCountry = 'US';
-
-  // PhoneNumber phoneCode = PhoneNumber(isoCode: 'US', dialCode: "+1");
   var countries_code = <String?>[];
-
   String? _phone = "";
   bool? _isAgree = false;
-  bool _isCaptchaShowing = false;
   String googleRecaptchaKey = "";
 
   //controllers
@@ -138,16 +133,11 @@ class _RegistrationState extends State<Registration> {
       });
 
       ToastComponent.showDialog(message, gravity: Toast.center, duration: 3);
+      
     } else {
       ToastComponent.showDialog(signupResponse.message,
           gravity: Toast.center, duration: Toast.lengthLong);
       AuthHelper().setUserData(signupResponse);
-
-      // redirect to main
-      // Navigator.pushAndRemoveUntil(context,
-      //     MaterialPageRoute(builder: (context) {
-      //       return Main();
-      //     }), (newRoute) => false);
       context.go("/");
 
       // push notification starts
@@ -170,33 +160,15 @@ class _RegistrationState extends State<Registration> {
           print(fcmToken);
           if (is_logged_in.$ == true) {
             // update device token
-            var deviceTokenUpdateResponse = await ProfileRepository()
-                .getDeviceTokenUpdateResponse(fcmToken);
+            await ProfileRepository().getDeviceTokenUpdateResponse(fcmToken);
           }
         }
       }
-
-      // context.go("/");
-
-      // if ((mail_verification_status.$ && _register_by == "email") ||
-      //     _register_by == "phone") {
-      //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //     return Otp(
-      //       verify_by: _register_by,
-      //       user_id: signupResponse.user_id,
-      //     );
-      //   }));
-      // } else {
-      //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //     return Login();
-      //   }));
-      // }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final _screen_height = MediaQuery.of(context).size.height;
     final _screen_width = MediaQuery.of(context).size.width;
     return AuthScreen.buildScreen(
         context,
@@ -229,7 +201,7 @@ class _RegistrationState extends State<Registration> {
                     controller: _nameController,
                     autofocus: false,
                     decoration: InputDecorations.buildInputDecoration_1(
-                        hint_text: "John Doe"),
+                        hint_text: "Example Example"),
                   ),
                 ),
               ),
@@ -255,7 +227,7 @@ class _RegistrationState extends State<Registration> {
                           controller: _emailController,
                           autofocus: false,
                           decoration: InputDecorations.buildInputDecoration_1(
-                              hint_text: "johndoe@example.com"),
+                              hint_text: "example@example.com"),
                         ),
                       ),
                       otp_addon_installed.$
@@ -304,8 +276,6 @@ class _RegistrationState extends State<Registration> {
                           autoValidateMode: AutovalidateMode.disabled,
                           selectorTextStyle:
                               TextStyle(color: MyTheme.font_grey),
-                          // initialValue: PhoneNumber(
-                          //     isoCode: countries_code[0].toString()),
                           textFieldController: _phoneNumberController,
                           formatInput: true,
                           keyboardType: TextInputType.numberWithOptions(
@@ -357,8 +327,7 @@ class _RegistrationState extends State<Registration> {
                         obscureText: true,
                         enableSuggestions: false,
                         autocorrect: false,
-                        decoration: InputDecorations.buildInputDecoration_1(
-                            hint_text: "• • • • • • • •"),
+                        decoration: InputDecorations.buildInputDecoration_1(),
                       ),
                     ),
                     Text(
@@ -389,29 +358,10 @@ class _RegistrationState extends State<Registration> {
                     obscureText: true,
                     enableSuggestions: false,
                     autocorrect: false,
-                    decoration: InputDecorations.buildInputDecoration_1(
-                        hint_text: "• • • • • • • •"),
+                    decoration: InputDecorations.buildInputDecoration_1(),
                   ),
                 ),
               ),
-              if (google_recaptcha.$)
-                Container(
-                  height: _isCaptchaShowing ? 350 : 50,
-                  width: 300,
-                  child: Captcha(
-                    (keyValue) {
-                      googleRecaptchaKey = keyValue;
-                      setState(() {});
-                    },
-                    handleCaptcha: (data) {
-                      if (_isCaptchaShowing.toString() != data) {
-                        _isCaptchaShowing = data;
-                        setState(() {});
-                      }
-                    },
-                    isIOS: Platform.isIOS,
-                  ),
-                ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Row(
@@ -487,62 +437,54 @@ class _RegistrationState extends State<Registration> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: Container(
-                  height: 45,
-                  child: Btn.minWidthFixHeight(
-                    minWidth: MediaQuery.of(context).size.width,
-                    height: 50,
-                    color: MyTheme.accent_color,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(6.0))),
+              Gutter(),
+              Btn.minWidthFixHeight(
+                minWidth: MediaQuery.of(context).size.width,
+                height: 50,
+                color: MyTheme.accent_color,
+                shape: RoundedRectangleBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(6.0))),
+                child: Text(
+                  AppLocalizations.of(context)!.sign_up_ucf,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: MyTheme.white),
+                ),
+                onPressed: _isAgree!
+                    ? () {
+                        onPressSignUp();
+                      }
+                    : null,
+              ),
+              Gutter(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                      child: Text(
+                    AppLocalizations.of(context)!.already_have_an_account,
+                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12),
+                  )),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
                     child: Text(
-                      AppLocalizations.of(context)!.sign_up_ucf,
+                      AppLocalizations.of(context)!.log_in,
                       style: TextStyle(
-                          color: Colors.white,
+                          color: MyTheme.accent_color,
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
                     ),
-                    onPressed: _isAgree!
-                        ? () {
-                            onPressSignUp();
-                          }
-                        : null,
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Login();
+                      }));
+                    },
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                        child: Text(
-                      AppLocalizations.of(context)!.already_have_an_account,
-                      style: TextStyle(color: MyTheme.font_grey, fontSize: 12),
-                    )),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    InkWell(
-                      child: Text(
-                        AppLocalizations.of(context)!.log_in,
-                        style: TextStyle(
-                            color: MyTheme.accent_color,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Login();
-                        }));
-                      },
-                    ),
-                  ],
-                ),
+                ],
               ),
             ],
           ),

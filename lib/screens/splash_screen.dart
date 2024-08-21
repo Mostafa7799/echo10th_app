@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           borderRadius: BorderRadius.circular(8)
                         ),
                         child: Image.asset(
-                            "assets/splash_screen_logo.png",
+                            "assets/app_logo.png",
                           filterQuality: FilterQuality.low,
                         ),
                       ),
@@ -124,19 +124,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-/*
-            Padding(
-              padding: const EdgeInsets.only(top: 120.0),
-              child: Container(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-
-                    ],
-                  )),
-            ),*/
           ],
         ),
       ),

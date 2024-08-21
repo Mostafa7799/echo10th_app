@@ -36,6 +36,7 @@ import 'package:active_ecommerce_flutter/screens/wishlist.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:one_context/one_context.dart';
 import 'package:provider/provider.dart';
@@ -142,10 +143,8 @@ class _ProfileState extends State<Profile> {
     } else if (default_length == 2 && txt.length == 1) {
       leading_zeros = "0";
     }
-  
-    var newtxt = (txt == "" || txt == null.toString())
-        ? blank_zeros
-        : txt;
+
+    var newtxt = (txt == "" || txt == null.toString()) ? blank_zeros : txt;
 
     // print(txt + " " + default_length.toString());
     // print(newtxt);
@@ -190,16 +189,7 @@ class _ProfileState extends State<Profile> {
       height: DeviceInfo(context).height,
       child: Stack(
         children: [
-          Container(
-              height: DeviceInfo(context).height! / 1.6,
-              width: DeviceInfo(context).width,
-              color: MyTheme.accent_color,
-              alignment: Alignment.topRight,
-              child: Image.asset(
-                "assets/background_1.png",
-              )),
           Scaffold(
-            backgroundColor: Colors.transparent,
             appBar: buildCustomAppBar(context),
             body: buildBody(),
           ),
@@ -230,17 +220,17 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
               child: buildCountersRow(),
             ),
+            Gutter(),
+            Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
               child: buildHorizontalSettings(),
             ),
+            Gutter(),
+            Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
               child: buildSettingAndAddonsHorizontalMenu(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              child: buildBottomVerticalCardList(),
             ),
           ]),
         )
@@ -250,32 +240,25 @@ class _ProfileState extends State<Profile> {
 
   PreferredSize buildCustomAppBar(context) {
     return PreferredSize(
-      preferredSize: Size(DeviceInfo(context).width!, 80),
+      preferredSize: Size(DeviceInfo(context).width!, 90),
       child: Container(
         // color: Colors.green,
         child: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  margin: EdgeInsets.only(right: 18),
-                  height: 30,
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Icons.close,
-                        color: MyTheme.white,
-                        size: 20,
-                      )),
-                ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      size: 20,
+                    )),
               ),
-
-              // Container(
-              //   margin: EdgeInsets.symmetric(vertical: 8),
-              //   width: DeviceInfo(context).width,height: 1,color: MyTheme.medium_grey_50,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: buildAppbarSection(),
@@ -294,131 +277,6 @@ class _ProfileState extends State<Profile> {
       decoration: BoxDecorations.buildBoxDecoration_1(),
       child: Column(
         children: [
-          if (false)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildBottomVerticalCardListItem(
-                    "assets/coupon.png", LangText(context).local.coupons_ucf,
-                    onPressed: () {}),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-                buildBottomVerticalCardListItem("assets/favoriteseller.png",
-                    LangText(context).local.favorite_seller_ucf,
-                    onPressed: () {}),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildBottomVerticalCardListItem("assets/products.png",
-                  LangText(context).local.top_selling_products_ucf,
-                  onPressed: () {
-                AIZRoute.push(context, TopSellingProducts());
-              }),
-              Divider(
-                thickness: 1,
-                color: MyTheme.light_grey,
-              ),
-            ],
-          ),
-
-          buildBottomVerticalCardListItem("assets/download.png",
-              LangText(context).local.all_digital_products_ucf, onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DigitalProducts();
-            }));
-          }),
-          Divider(
-            thickness: 1,
-            color: MyTheme.light_grey,
-          ),
-
-          buildBottomVerticalCardListItem(
-              "assets/coupon.png", LangText(context).local.coupons_ucf,
-              onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return Coupons();
-            }));
-          }),
-          Divider(
-            thickness: 1,
-            color: MyTheme.light_grey,
-          ),
-
-          // this is addon
-          if (false)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem("assets/auction.png",
-                    LangText(context).local.on_auction_products_ucf,
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AuctionProducts();
-                  }));
-                }),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-          if (classified_product_status.$)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem("assets/classified_product.png",
-                    LangText(context).local.classified_ads_ucf, onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ClassifiedAds();
-                  }));
-                }),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-
-          if (last_viewed_product_status.$ && is_logged_in.$)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem("assets/last_view_product.png",
-                    LangText(context).local.last_view_product_ucf,
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return LastViewProduct();
-                  }));
-                }),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-
-          // this is addon auction product
-          if (false)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem("assets/auction.png",
-                    LangText(context).local.on_auction_products_ucf,
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AuctionProducts();
-                  }));
-                }),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
           if (auction_addon_installed.$)
             Column(
               children: [
@@ -440,25 +298,6 @@ class _ProfileState extends State<Profile> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 24.0),
-                                  child: Image.asset(
-                                    "assets/auction.png",
-                                    height: 16,
-                                    width: 16,
-                                    color: MyTheme.dark_font_grey,
-                                  ),
-                                ),
-                                Text(
-                                  LangText(context).local.auction_ucf,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: MyTheme.dark_font_grey),
-                                ),
-                              ],
-                            ),
                             Icon(
                               _auctionExpand
                                   ? Icons.keyboard_arrow_down
@@ -568,14 +407,6 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         )
-                        // buildBottomVerticalCardListItem("assets/auction.png",
-                        //     LangText(context).local!.on_auction_products_ucf,
-                        //     onPressed: () {
-                        //   Navigator.push(context,
-                        //       MaterialPageRoute(builder: (context) {
-                        //     return AuctionProducts();
-                        //   }));
-                        // }),
                       ],
                     ),
                   ),
@@ -586,100 +417,12 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
-          if (vendor_system.$)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem("assets/shop.png",
-                    LangText(context).local.browse_all_sellers_ucf,
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Filter(
-                      selected_filter: "sellers",
-                    );
-                  }));
-                }),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-
-          if (is_logged_in.$ && (vendor_system.$))
-            Column(
-              children: [
-                buildBottomVerticalCardListItem("assets/shop.png",
-                    LangText(context).local.followed_sellers_ucf,
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return FollowedSellers();
-                  }));
-                }),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-
-          if (is_logged_in.$)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem("assets/delete.png",
-                    LangText(context).local.delete_my_account, onPressed: () {
-                  deleteWarningDialog();
-                }),
-                Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-
-          if (false)
-            buildBottomVerticalCardListItem(
-                "assets/blog.png", LangText(context).local.blogs_ucf,
-                onPressed: () {}),
         ],
       ),
     );
   }
 
-  Container buildBottomVerticalCardListItem(String img, String label,
-      {Function()? onPressed, bool isDisable = false}) {
-    return Container(
-      height: 40,
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-            splashFactory: NoSplash.splashFactory,
-            alignment: Alignment.center,
-            padding: EdgeInsets.zero),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 24.0),
-              child: Image.asset(
-                img,
-                height: 16,
-                width: 16,
-                color: isDisable ? MyTheme.grey_153 : MyTheme.dark_font_grey,
-              ),
-            ),
-            Text(
-              label,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: isDisable ? MyTheme.grey_153 : MyTheme.dark_font_grey),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // This section show after counter section
+  // Ths section show after counter section
   // change Language, Edit Profile and Address section
   Widget buildHorizontalSettings() {
     return Container(
@@ -708,9 +451,9 @@ class _ProfileState extends State<Profile> {
               children: [
                 Image.asset(
                   "assets/currency.png",
-                  height: 16,
-                  width: 16,
-                  color: MyTheme.white,
+                  height: 22,
+                  width: 22,
+                  color: MyTheme.black,
                 ),
                 SizedBox(
                   height: 5,
@@ -718,10 +461,7 @@ class _ProfileState extends State<Profile> {
                 Text(
                   AppLocalizations.of(context)!.currency_ucf,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 10,
-                      color: MyTheme.white,
-                      fontWeight: FontWeight.w500),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 )
               ],
             ),
@@ -766,9 +506,9 @@ class _ProfileState extends State<Profile> {
         children: [
           Image.asset(
             img,
-            height: 16,
-            width: 16,
-            color: isLogin ? MyTheme.white : MyTheme.blue_grey,
+            height: 25,
+            width: 25,
+            color: isLogin ? MyTheme.black : MyTheme.blue_grey,
           ),
           SizedBox(
             height: 5,
@@ -776,10 +516,9 @@ class _ProfileState extends State<Profile> {
           Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 10,
-                color: isLogin ? MyTheme.white : MyTheme.blue_grey,
-                fontWeight: FontWeight.w500),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: isLogin ? MyTheme.black : MyTheme.blue_grey,
+                ),
           )
         ],
       ),
@@ -822,173 +561,160 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget buildSettingAndAddonsHorizontalMenu() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      margin: EdgeInsets.only(top: 14),
+    return SizedBox(
       width: DeviceInfo(context).width,
       height: 200,
-      decoration: BoxDecorations.buildBoxDecoration_1(),
-      child: GridView(
-        scrollDirection: Axis.horizontal,
-        physics: const PageScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 16.0,
-          crossAxisSpacing: 2.0,
-          crossAxisCount: 2,
-        ),
-        shrinkWrap: true,
-        cacheExtent: 5.0,
-        children: [
-          if (wallet_system_status.$)
-            Container(
-              child: buildSettingAndAddonsHorizontalMenuItem(
-                  "assets/wallet.png",
-                  AppLocalizations.of(context)!.my_wallet_ucf, () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Wallet();
-                }));
-              }),
+      child: Card(
+        margin: EdgeInsets.symmetric(vertical: 16),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView(
+            scrollDirection: Axis.horizontal,
+            physics: const PageScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 16.0,
+              crossAxisSpacing: 2.0,
+              crossAxisCount: 2,
             ),
-          buildSettingAndAddonsHorizontalMenuItem(
-              "assets/orders.png",
-              AppLocalizations.of(context)!.orders_ucf,
-              is_logged_in.$
-                  ? () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return OrderList();
-                      }));
-                    }
-                  : () => null),
-          buildSettingAndAddonsHorizontalMenuItem(
-              "assets/heart.png",
-              AppLocalizations.of(context)!.my_wishlist_ucf,
-              is_logged_in.$
-                  ? () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Wishlist();
-                      }));
-                    }
-                  : () => null),
-          if (club_point_addon_installed.$)
-            buildSettingAndAddonsHorizontalMenuItem(
-                "assets/points.png",
-                AppLocalizations.of(context)!.earned_points_ucf,
-                is_logged_in.$
-                    ? () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Clubpoint();
-                        }));
-                      }
-                    : () => null),
-          Container(
-            child: badges.Badge(
-              position: badges.BadgePosition.topEnd(top: 8, end: 20),
-              badgeStyle: badges.BadgeStyle(
-                shape: badges.BadgeShape.circle,
-                badgeColor: MyTheme.accent_color,
-                borderRadius: BorderRadius.circular(10),
-                padding: EdgeInsets.all(5),
-              ),
-              badgeContent: Consumer<UnReadNotificationCounter>(
-                builder: (context, notification, child) {
-                  return Text(
-                    "${notification.unReadNotificationCounter}",
-                    style: TextStyle(fontSize: 10, color: Colors.white),
-                  );
-                },
-              ),
-              child: buildSettingAndAddonsHorizontalMenuItem(
-                  "assets/notification.png",
-                  "Notifications",
+            shrinkWrap: true,
+            cacheExtent: 5.0,
+            children: [
+              if (wallet_system_status.$)
+                buildSettingAndAddonsHorizontalMenuItem("assets/wallet.png",
+                    AppLocalizations.of(context)!.my_wallet_ucf, () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Wallet();
+                  }));
+                }),
+              buildSettingAndAddonsHorizontalMenuItem(
+                  "assets/orders.png",
+                  AppLocalizations.of(context)!.orders_ucf,
                   is_logged_in.$
                       ? () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return NotificationList();
-                          })).then((value) {
-                            onPopped(value);
-                          });
+                            return OrderList();
+                          }));
                         }
                       : () => null),
-            ),
-          ),
-          if (refund_addon_installed.$)
-            buildSettingAndAddonsHorizontalMenuItem(
-                "assets/refund.png",
-                AppLocalizations.of(context)!.refund_requests_ucf,
-                is_logged_in.$
-                    ? () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return RefundRequest();
-                        }));
-                      }
-                    : () => null),
-          if (conversation_system_status.$)
-            buildSettingAndAddonsHorizontalMenuItem(
-                "assets/messages.png",
-                AppLocalizations.of(context)!.messages_ucf,
-                is_logged_in.$
-                    ? () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return MessengerList();
-                        }));
-                      }
-                    : () => null),
-          // if (auction_addon_installed.$)
-          if (false)
-            buildSettingAndAddonsHorizontalMenuItem(
-                "assets/auction.png",
-                AppLocalizations.of(context)!.auction_ucf,
-                is_logged_in.$
-                    ? () {
-                        // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (context) {
-                        //   return MessengerList();
-                        // }));
-                      }
-                    : () => null),
-          if (classified_product_status.$)
-            buildSettingAndAddonsHorizontalMenuItem(
-                "assets/classified_product.png",
-                AppLocalizations.of(context)!.classified_products,
-                is_logged_in.$
-                    ? () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return MyClassifiedAds();
-                        }));
-                      }
-                    : () => null),
+              buildSettingAndAddonsHorizontalMenuItem(
+                  "assets/heart.png",
+                  AppLocalizations.of(context)!.my_wishlist_ucf,
+                  is_logged_in.$
+                      ? () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Wishlist();
+                          }));
+                        }
+                      : () => null),
+              if (club_point_addon_installed.$)
+                buildSettingAndAddonsHorizontalMenuItem(
+                    "assets/points.png",
+                    AppLocalizations.of(context)!.earned_points_ucf,
+                    is_logged_in.$
+                        ? () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return Clubpoint();
+                            }));
+                          }
+                        : () => null),
+              Container(
+                child: badges.Badge(
+                  position: badges.BadgePosition.topEnd(top: 8, end: 20),
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
+                    badgeColor: MyTheme.accent_color,
+                    borderRadius: BorderRadius.circular(10),
+                    padding: EdgeInsets.all(5),
+                  ),
+                  badgeContent: Consumer<UnReadNotificationCounter>(
+                    builder: (context, notification, child) {
+                      return Text(
+                        "${notification.unReadNotificationCounter}",
+                        style: TextStyle(fontSize: 10, color: Colors.white),
+                      );
+                    },
+                  ),
+                  child: buildSettingAndAddonsHorizontalMenuItem(
+                      "assets/notification.png",
+                      "Notifications",
+                      is_logged_in.$
+                          ? () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return NotificationList();
+                              })).then((value) {
+                                onPopped(value);
+                              });
+                            }
+                          : () => null),
+                ),
+              ),
+              if (refund_addon_installed.$)
+                buildSettingAndAddonsHorizontalMenuItem(
+                    "assets/refund.png",
+                    AppLocalizations.of(context)!.refund_requests_ucf,
+                    is_logged_in.$
+                        ? () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return RefundRequest();
+                            }));
+                          }
+                        : () => null),
+              if (conversation_system_status.$)
+                buildSettingAndAddonsHorizontalMenuItem(
+                    "assets/messages.png",
+                    AppLocalizations.of(context)!.messages_ucf,
+                    is_logged_in.$
+                        ? () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return MessengerList();
+                            }));
+                          }
+                        : () => null),
+              if (classified_product_status.$)
+                buildSettingAndAddonsHorizontalMenuItem(
+                    "assets/classified_product.png",
+                    AppLocalizations.of(context)!.classified_products,
+                    is_logged_in.$
+                        ? () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return MyClassifiedAds();
+                            }));
+                          }
+                        : () => null),
 
-          buildSettingAndAddonsHorizontalMenuItem(
-              "assets/download.png",
-              AppLocalizations.of(context)!.downloads_ucf,
-              is_logged_in.$
-                  ? () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return PurchasedDigitalProducts();
-                      }));
-                    }
-                  : () => null),
-          buildSettingAndAddonsHorizontalMenuItem(
-              "assets/download.png",
-              "Upload file",
-              is_logged_in.$
-                  ? () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return UploadFile();
-                      }));
-                    }
-                  : () => null),
-          // notification and badge contents
-        ],
+              buildSettingAndAddonsHorizontalMenuItem(
+                  "assets/download.png",
+                  AppLocalizations.of(context)!.downloads_ucf,
+                  is_logged_in.$
+                      ? () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return PurchasedDigitalProducts();
+                          }));
+                        }
+                      : () => null),
+              buildSettingAndAddonsHorizontalMenuItem(
+                  "assets/download.png",
+                  "Upload file",
+                  is_logged_in.$
+                      ? () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return UploadFile();
+                          }));
+                        }
+                      : () => null),
+              // notification and badge contents
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -997,8 +723,6 @@ class _ProfileState extends State<Profile> {
       String img, String text, Function() onTap) {
     return Container(
       alignment: Alignment.center,
-      // color: Colors.red,
-      // width: DeviceInfo(context).width / 4,
       child: InkWell(
         onTap: is_logged_in.$
             ? onTap
@@ -1010,11 +734,9 @@ class _ProfileState extends State<Profile> {
           children: [
             Image.asset(
               img,
-              width: 16,
-              height: 16,
-              color: is_logged_in.$
-                  ? MyTheme.dark_font_grey
-                  : MyTheme.medium_grey_50,
+              width: 20,
+              height: 20,
+              color: is_logged_in.$ ? MyTheme.black : MyTheme.medium_grey_50,
             ),
             SizedBox(
               height: 10,
@@ -1023,11 +745,10 @@ class _ProfileState extends State<Profile> {
               text,
               textAlign: TextAlign.center,
               maxLines: 1,
-              style: TextStyle(
-                  color: is_logged_in.$
-                      ? MyTheme.dark_font_grey
-                      : MyTheme.medium_grey_50,
-                  fontSize: 12),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color:
+                        is_logged_in.$ ? MyTheme.black : MyTheme.medium_grey_50,
+                  ),
             )
           ],
         ),
@@ -1056,36 +777,28 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget buildCountersRowItem(String counter, String title) {
-    return Container(
+    return Card(
       margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.symmetric(vertical: 14),
-      width: DeviceInfo(context).width! / 3.5,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
-        color: MyTheme.white,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            counter,
-            maxLines: 2,
-            style: TextStyle(
-                fontSize: 16,
-                color: MyTheme.dark_font_grey,
-                fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            title,
-            maxLines: 2,
-            style: TextStyle(
-              color: MyTheme.dark_font_grey,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              counter,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          ),
-        ],
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              title,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1098,14 +811,6 @@ class _ProfileState extends State<Profile> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          /* Container(
-            child: InkWell(
-              //padding: EdgeInsets.zero,
-              onTap: (){
-              Navigator.pop(context);
-            } ,child:Icon(Icons.arrow_back,size: 25,color: MyTheme.white,), ),
-          ),*/
-          // SizedBox(width: 10,),
           Padding(
             padding: const EdgeInsets.only(right: 14.0),
             child: Container(
@@ -1138,21 +843,18 @@ class _ProfileState extends State<Profile> {
           Spacer(),
           Container(
             width: 70,
-            height: 26,
+            height: 30,
             child: Btn.basic(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
               // 	rgb(50,205,50)
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
-                  side: BorderSide(color: MyTheme.white)),
+                  side: BorderSide(color: MyTheme.black)),
               child: Text(
                 is_logged_in.$
                     ? AppLocalizations.of(context)!.logout_ucf
                     : LangText(context).local.login_ucf,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
               ),
               onPressed: () {
                 if (is_logged_in.$)
@@ -1175,10 +877,7 @@ class _ProfileState extends State<Profile> {
             children: [
               Text(
                 "${user_name.$}",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: MyTheme.white,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
               Padding(
                   padding: const EdgeInsets.only(top: 4.0),
@@ -1193,10 +892,7 @@ class _ProfileState extends State<Profile> {
           )
         : Text(
             LangText(context).local.login_or_reg,
-            style: TextStyle(
-                fontSize: 14,
-                color: MyTheme.white,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           );
   }
 

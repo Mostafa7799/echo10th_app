@@ -98,26 +98,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 delegate: SliverChildListDelegate([
                                   HomeCarouselSlider(
                                       context: context, homeData: homeData),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.fromLTRB(
-                                  //     18.0,
-                                  //     0.0,
-                                  //     18.0,
-                                  //     0.0,
-                                  //   ),
-                                  //   child: buildHomeMenuRow1(context, homeData),
-                                  // ),
                                   HomeBannerOne(
                                       context: context, homeData: homeData),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.fromLTRB(
-                                  //     18.0,
-                                  //     0.0,
-                                  //     18.0,
-                                  //     0.0,
-                                  //   ),
-                                  //   child: buildHomeMenuRow2(context),
-                                  // ),
                                 ]),
                               ),
                               SliverList(
@@ -317,11 +299,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         homeData.featuredProductList.length == 0) {
       return Row(
         children: [
-          Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ShimmerHelper().buildBasicShimmer(
-                  height: 120.0,
-                  width: (MediaQuery.of(context).size.width - 64) / 3)),
           Padding(
               padding: const EdgeInsets.all(16.0),
               child: ShimmerHelper().buildBasicShimmer(

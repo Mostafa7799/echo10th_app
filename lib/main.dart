@@ -87,10 +87,12 @@ class _MyAppState extends State<MyApp> {
         ],
         child: Consumer<LocaleProvider>(builder: (context, provider, snapshot) {
           return MaterialApp.router(
+
             builder: (context, child) => OneContext().builder(
               context,
               child,
             ),
+            
             routerConfig: routes,
             title: AppConfig.app_name,
             debugShowCheckedModeBanner: false,

@@ -20,7 +20,7 @@ import 'package:toast/toast.dart';
 
 class MapLocation extends StatefulWidget {
   MapLocation({Key? key, this.address}) : super(key: key);
-  var address;
+  final address;
 
   @override
   State<MapLocation> createState() => MapLocationState();
@@ -36,17 +36,12 @@ class MapLocationState extends State<MapLocation>
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     _controller = controller;
-    // String value = await DefaultAssetBundle.of(context)
-    //     .loadString('assets/map_style.json');
-    // _controller.setMapStyle(value);
     setState(() {});
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     if (widget.address.location_available) {
       setInitialLocation();
     } else {
@@ -60,8 +55,7 @@ class MapLocationState extends State<MapLocation>
   }
 
   setDummyInitialLocation() {
-    kInitialPosition = LatLng(
-        51.52034098371205, -0.12637399200000668); // London , arbitary value
+    kInitialPosition = LatLng(51.52034098371205, -0.12637399200000668);
     setState(() {});
   }
 

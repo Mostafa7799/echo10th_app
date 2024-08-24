@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/btn.dart';
 import 'package:active_ecommerce_flutter/custom/input_decorations.dart';
@@ -69,6 +71,7 @@ class _LoginState extends State<Login> {
     Loading.show(context);
     var email = _emailController.text.toString();
     var password = _passwordController.text.toString();
+    log('Email $email' + '  Password $password');
 
     if (_login_by == 'email' && email == "") {
       ToastComponent.showDialog(AppLocalizations.of(context)!.enter_email,
@@ -155,28 +158,30 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
                   AppLocalizations.of(context)!.email_ucf,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: MyTheme.accent_color),
                 ),
               ),
               TextField(
                 controller: _emailController,
                 autofocus: false,
-                decoration: InputDecorations.buildInputDecoration_1(
-                    hint_text: "example@example.com"),
+                decoration: InputDecorations.buildInputDecoration_1(),
               ),
               Gutter(),
-              Text(
-                AppLocalizations.of(context)!.password_ucf,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              Text(AppLocalizations.of(context)!.password_ucf,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: MyTheme.accent_color)),
               TextField(
                 controller: _passwordController,
                 autofocus: false,
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
-                decoration: InputDecorations.buildInputDecoration_1(
-                    hint_text: "• • • • • • • •"),
+                decoration: InputDecorations.buildInputDecoration_1(),
               ),
               GutterSmall(),
               Row(

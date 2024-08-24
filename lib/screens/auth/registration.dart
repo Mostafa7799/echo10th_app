@@ -1,4 +1,3 @@
-
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/btn.dart';
 import 'package:active_ecommerce_flutter/custom/device_info.dart';
@@ -133,11 +132,11 @@ class _RegistrationState extends State<Registration> {
       });
 
       ToastComponent.showDialog(message, gravity: Toast.center, duration: 3);
-      
     } else {
       ToastComponent.showDialog(signupResponse.message,
           gravity: Toast.center, duration: Toast.lengthLong);
       AuthHelper().setUserData(signupResponse);
+      print('test signup response $signupResponse');
       context.go("/");
 
       // push notification starts
@@ -189,8 +188,10 @@ class _RegistrationState extends State<Registration> {
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
                   AppLocalizations.of(context)!.name_ucf,
-                  style: TextStyle(
-                      color: MyTheme.accent_color, fontWeight: FontWeight.w600),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: MyTheme.accent_color),
                 ),
               ),
               Padding(
@@ -200,8 +201,7 @@ class _RegistrationState extends State<Registration> {
                   child: TextField(
                     controller: _nameController,
                     autofocus: false,
-                    decoration: InputDecorations.buildInputDecoration_1(
-                        hint_text: "Example Example"),
+                    decoration: InputDecorations.buildInputDecoration_1(),
                   ),
                 ),
               ),
@@ -211,8 +211,10 @@ class _RegistrationState extends State<Registration> {
                   _register_by == "email"
                       ? AppLocalizations.of(context)!.email_ucf
                       : AppLocalizations.of(context)!.phone_ucf,
-                  style: TextStyle(
-                      color: MyTheme.accent_color, fontWeight: FontWeight.w600),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: MyTheme.accent_color),
                 ),
               ),
               if (_register_by == "email")
@@ -226,8 +228,7 @@ class _RegistrationState extends State<Registration> {
                         child: TextField(
                           controller: _emailController,
                           autofocus: false,
-                          decoration: InputDecorations.buildInputDecoration_1(
-                              hint_text: "example@example.com"),
+                          decoration: InputDecorations.buildInputDecoration_1(),
                         ),
                       ),
                       otp_addon_installed.$
@@ -308,11 +309,11 @@ class _RegistrationState extends State<Registration> {
                 ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
-                child: Text(
-                  AppLocalizations.of(context)!.password_ucf,
-                  style: TextStyle(
-                      color: MyTheme.accent_color, fontWeight: FontWeight.w600),
-                ),
+                child: Text(AppLocalizations.of(context)!.password_ucf,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: MyTheme.accent_color)),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
@@ -334,7 +335,7 @@ class _RegistrationState extends State<Registration> {
                       AppLocalizations.of(context)!
                           .password_must_contain_at_least_6_characters,
                       style: TextStyle(
-                          color: MyTheme.textfield_grey,
+                          color: MyTheme.dark_grey,
                           fontStyle: FontStyle.italic),
                     )
                   ],
@@ -344,8 +345,10 @@ class _RegistrationState extends State<Registration> {
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
                   AppLocalizations.of(context)!.retype_password_ucf,
-                  style: TextStyle(
-                      color: MyTheme.accent_color, fontWeight: FontWeight.w600),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(color: MyTheme.accent_color),
                 ),
               ),
               Padding(
@@ -464,18 +467,15 @@ class _RegistrationState extends State<Registration> {
                   Center(
                       child: Text(
                     AppLocalizations.of(context)!.already_have_an_account,
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   )),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  Gutter(),
                   InkWell(
                     child: Text(
                       AppLocalizations.of(context)!.log_in,
-                      style: TextStyle(
-                          color: MyTheme.accent_color,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: MyTheme.accent_color,
+                          ),
                     ),
                     onTap: () {
                       Navigator.push(context,

@@ -145,9 +145,6 @@ class _CategoryProductsState extends State<CategoryProducts> {
         width: DeviceInfo(context).width,
         color: MyTheme.accent_color,
         alignment: Alignment.topRight,
-        child: Image.asset(
-          "assets/background_1.png",
-        ),
       ),
       bottom: PreferredSize(
           child: AnimatedContainer(
@@ -157,28 +154,9 @@ class _CategoryProductsState extends State<CategoryProducts> {
             child: !_isInitial ? buildSubCategory() : buildSubCategory(),
           ),
           preferredSize: Size.fromHeight(0.0)),
-      /*leading: Builder(
-        builder: (context) => IconButton(
-          icon: Icon(CupertinoIcons.arrow_left, color: MyTheme.dark_grey),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),*/
       title: buildAppBarTitle(context),
       elevation: 0.0,
       titleSpacing: 0,
-      /*actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-          child: IconButton(
-            icon: Icon(Icons.search, color: MyTheme.dark_grey),
-            onPressed: () {
-              _searchKey = _searchController.text.toString();
-              reset();
-              fetchData();
-            },
-          ),
-        ),
-      ],*/
     );
   }
 
@@ -210,7 +188,10 @@ class _CategoryProductsState extends State<CategoryProducts> {
               categoryInfo?.name ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: MyTheme.white),
             ),
           ),
           Spacer(),
@@ -225,6 +206,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                 icon: Icon(
                   Icons.search,
                   size: 25,
+                  color: MyTheme.white,
                 )),
           ),
         ],

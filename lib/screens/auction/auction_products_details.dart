@@ -35,7 +35,7 @@ import '../../helpers/main_helpers.dart';
 import '../../repositories/auction_products_repository.dart';
 
 class AuctionProductsDetails extends StatefulWidget {
-  String slug;
+ final String slug;
 
   AuctionProductsDetails({Key? key, required this.slug}) : super(key: key);
 
@@ -50,8 +50,7 @@ class _AuctionProductsDetailsState extends State<AuctionProductsDetails>
   int _currentImage = 0;
   ScrollController _mainScrollController =
       ScrollController(initialScrollOffset: 0.0);
-  ScrollController _colorScrollController = ScrollController();
-  ScrollController _variantScrollController = ScrollController();
+
   ScrollController _imageScrollController = ScrollController();
   TextEditingController sellerChatTitleController = TextEditingController();
   TextEditingController sellerChatMessageController = TextEditingController();

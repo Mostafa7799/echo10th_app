@@ -609,32 +609,21 @@ class _ShippingInfoState extends State<ShippingInfo> {
 
   BottomAppBar buildBottomAppBar(BuildContext context) {
     return BottomAppBar(
-      child: Container(
-        color: Colors.transparent,
+      child: Btn.minWidthFixHeight(
+        minWidth: MediaQuery.of(context).size.width,
         height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Btn.minWidthFixHeight(
-              minWidth: MediaQuery.of(context).size.width,
-              height: 50,
-              color: MyTheme.accent_color,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              child: Text(
-                AppLocalizations.of(context)!.proceed_to_checkout,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
-              ),
-              onPressed: () {
-                onPressProceed(context);
-              },
-            )
-          ],
+        color: MyTheme.accent_color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0),
         ),
+        child: Text(
+          AppLocalizations.of(context)!.proceed_to_checkout,
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        onPressed: () {
+          onPressProceed(context);
+        },
       ),
     );
   }
@@ -855,18 +844,6 @@ class _ShippingInfoState extends State<ShippingInfo> {
   }
 
   Widget buildCartSellerList() {
-    // if (is_logged_in.$ == false) {
-    //   return Container(
-    //       height: 100,
-    //       child: Center(
-    //           child: Text(
-    //             AppLocalizations
-    //                 .of(context)!
-    //                 .please_log_in_to_see_the_cart_items,
-    //             style: TextStyle(color: MyTheme.font_grey),
-    //           )));
-    // }
-    // else
     if (_isFetchDeliveryInfo && _deliveryInfoList.length == 0) {
       return SingleChildScrollView(
           child: ShimmerHelper()
@@ -1040,10 +1017,3 @@ class SellerWithShipping {
         'shipping_id': shippingId,
       };
 }
-//
-// class SellerWithForReqBody{
-//   int sellerId;
-//   String shippingType;
-//
-//   SellerWithForReqBody(this.sellerId, this.shippingType);
-// }

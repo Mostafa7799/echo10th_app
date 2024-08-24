@@ -13,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:one_context/one_context.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_value/shared_value.dart';
 import 'app_config.dart';
 import 'firebase_options.dart';
 import 'lang_config.dart';
@@ -39,13 +40,13 @@ main() async {
   ));
 
   runApp(
-    MyApp(),
+    SharedValue.wrapApp(
+      MyApp(),
+    ),
   );
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
-
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -53,13 +54,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    routes.routerDelegate.addListener(() {
-      // print("objectobject");
-    });
-
-    routes.routeInformationProvider.addListener(() {
-      // print("123123");
-    });
+    routes.routerDelegate.addListener(() {});
+    routes.routeInformationProvider.addListener(() {});
     super.initState();
     Future.delayed(Duration.zero).then(
       (value) async {
@@ -76,7 +72,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // final textTheme = Theme.of(context).textTheme;
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocaleProvider()),
@@ -87,12 +82,10 @@ class _MyAppState extends State<MyApp> {
         ],
         child: Consumer<LocaleProvider>(builder: (context, provider, snapshot) {
           return MaterialApp.router(
-
             builder: (context, child) => OneContext().builder(
               context,
               child,
             ),
-            
             routerConfig: routes,
             title: AppConfig.app_name,
             debugShowCheckedModeBanner: false,

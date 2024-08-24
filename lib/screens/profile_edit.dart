@@ -45,38 +45,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   XFile? _file;
 
   chooseAndUploadImage(context) async {
-
-  var status =  await Permission.camera.request();
-    // var status = await Permission.photos.request();
-    //
-    // if (status.isDenied) {
-    //   // We didn't ask for permission yet.
-    //   showDialog(
-    //       context: context,
-    //       builder: (BuildContext context) => CupertinoAlertDialog(
-    //             title: Text(AppLocalizations.of(context)!.photo_permission_ucf),
-    //             content: Text(
-    //                 AppLocalizations.of(context)!.this_app_needs_permission),
-    //             actions: <Widget>[
-    //               CupertinoDialogAction(
-    //                 child: Text(AppLocalizations.of(context)!.deny_ucf),
-    //                 onPressed: () => Navigator.of(context).pop(),
-    //               ),
-    //               CupertinoDialogAction(
-    //                 child: Text(AppLocalizations.of(context)!.settings_ucf),
-    //                 onPressed: () => openAppSettings(),
-    //               ),
-    //             ],
-    //           ));
-    // } else if (status.isRestricted) {
-    //   ToastComponent.showDialog(
-    //       AppLocalizations.of(context)!
-    //           .go_to_your_application_settings_and_give_photo_permission,
-    //       gravity: Toast.center,
-    //       duration: Toast.lengthLong);
-    // } else if (status.isGranted) {}
-
-    //file = await ImagePicker.pickImage(source: ImageSource.camera);
+    await Permission.camera.request();
     _file = await _picker.pickImage(source: ImageSource.gallery);
 
     if (_file == null) {
@@ -85,7 +54,6 @@ class _ProfileEditState extends State<ProfileEdit> {
       return;
     }
 
-    //return;
     String base64Image = FileHelper.getBase64FormateFile(_file!.path);
     String fileName = _file!.path.split("/").last;
 
@@ -148,11 +116,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   onPressUpdatePassword() async {
     var password = _passwordController.text.toString();
     var password_confirm = _passwordConfirmController.text.toString();
-
-    var change_password = password != "" ||
-        password_confirm !=
-            ""; // if both fields are empty we will not change user's password
-
+    var change_password = password != "" || password_confirm != "";
     if (!change_password && password == "") {
       ToastComponent.showDialog(AppLocalizations.of(context)!.enter_password,
           gravity: Toast.center, duration: Toast.lengthLong);
@@ -281,25 +245,6 @@ class _ProfileEditState extends State<ProfileEdit> {
                   width: 120.0,
                   borderRadius: BorderRadius.circular(60),
                   elevation: 6.0),
-/*
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                      color: Color.fromRGBO(112, 112, 112, .3), width: 2),
-                  //shape: BoxShape.rectangle,
-                ),
-                child: ClipRRect(
-                    clipBehavior: Clip.hardEdge,
-                    borderRadius: BorderRadius.all(Radius.circular(100.0)),
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/placeholder.png',
-                      image: "${avatar_original.$}",
-                      fit: BoxFit.fill,
-                    )),
-              ),*/
               Positioned(
                 right: 8,
                 bottom: 8,
@@ -481,7 +426,6 @@ class _ProfileEditState extends State<ProfileEdit> {
             alignment: Alignment.center,
             width: 150,
             child: Btn.basic(
-
               minWidth: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(vertical: 12),
               color: MyTheme.accent_color,
@@ -608,28 +552,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                     child: Text(
                       _emailController.text,
                       style: TextStyle(fontSize: 12, color: MyTheme.grey_153),
-                    )
-                    /*TextField(
-                          style: TextStyle(color:MyTheme.grey_153,fontSize: 12),
-                          enabled: false,
-                          enableIMEPersonalizedLearning: true,
-                          controller: _emailController,
-                          autofocus: false,
-                          decoration: InputDecorations.buildInputDecoration_1(
-
-                              hint_text: "jhon@example.com").copyWith(
-                            //enabled: false,
-                        labelStyle: TextStyle(color: MyTheme.grey_153),
-                        enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        ),
-
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-
-                        ),),
-                        ),*/
-                    ),
+                    )),
               ),
             ],
           ),

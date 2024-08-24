@@ -983,7 +983,7 @@ class _ProductDetailsState extends State<ProductDetails>
   Widget buildTotalPriceRow() {
     return Container(
       height: 40,
-      color: MyTheme.amber,
+      color: MyTheme.light_grey,
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
@@ -992,30 +992,23 @@ class _ProductDetailsState extends State<ProductDetails>
               padding: app_language_rtl.$!
                   ? EdgeInsets.only(left: 8.0)
                   : EdgeInsets.only(right: 8.0),
-              child: Container(
-                width: 75,
-                child: Text(
-                  AppLocalizations.of(context)!.total_price_ucf,
-                  style: TextStyle(
-                      color: Color.fromRGBO(153, 153, 153, 1), fontSize: 10),
-                ),
+              child: Text(
+                AppLocalizations.of(context)!.total_price_ucf,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 5.0),
-            child: Text(
-              SystemConfig.systemCurrency != null
-                  ? _totalPrice.toString().replaceAll(
-                      SystemConfig.systemCurrency!.code!,
-                      SystemConfig.systemCurrency!.symbol!)
-                  : SystemConfig.systemCurrency!.symbol! +
-                      _totalPrice.toString(),
-              style: TextStyle(
-                  color: MyTheme.accent_color,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600),
-            ),
+          Gutter(),
+          Text(
+            SystemConfig.systemCurrency != null
+                ? _totalPrice.toString().replaceAll(
+                    SystemConfig.systemCurrency!.code!,
+                    SystemConfig.systemCurrency!.symbol!)
+                : SystemConfig.systemCurrency!.symbol! + _totalPrice.toString(),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: MyTheme.accent_color),
           )
         ],
       ),

@@ -792,13 +792,13 @@ class _CheckoutState extends State<Checkout> {
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           children: [
-                            widget.paymentFor == PaymentFor.Order
-                                ? Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 16.0),
-                                    child: buildApplyCouponRow(context),
-                                  )
-                                : Container(),
+                            // widget.paymentFor == PaymentFor.Order
+                            //     ? Padding(
+                            //         padding:
+                            //             const EdgeInsets.only(bottom: 16.0),
+                            //         child: buildApplyCouponRow(context),
+                            //       )
+                            //     : Container(),
                             grandTotalSection(),
                           ],
                         ),
@@ -988,23 +988,25 @@ class _CheckoutState extends State<Checkout> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                      width: 100,
-                      height: 100,
-                      child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child:
-                              /*Image.asset(
+                    width: 100,
+                    height: 100,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child:
+                          /*Image.asset(
                           _paymentTypeList[index].image,
                           fit: BoxFit.fitWidth,
                         ),*/
-                              FadeInImage.assetNetwork(
-                            placeholder: 'assets/placeholder.png',
-                            image: _paymentTypeList[index].payment_type ==
-                                    "manual_payment"
-                                ? _paymentTypeList[index].image
-                                : _paymentTypeList[index].image,
-                            fit: BoxFit.fitWidth,
-                          ))),
+                          FadeInImage.assetNetwork(
+                        placeholder: 'assets/placeholder.png',
+                        image: _paymentTypeList[index].payment_type ==
+                                "manual_payment"
+                            ? _paymentTypeList[index].image
+                            : _paymentTypeList[index].image,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ),
                   Container(
                     width: 150,
                     child: Column(
@@ -1073,47 +1075,35 @@ class _CheckoutState extends State<Checkout> {
 
   BottomAppBar buildBottomAppBar(BuildContext context) {
     return BottomAppBar(
-      child: Container(
-        color: Colors.transparent,
+      child: Btn.minWidthFixHeight(
+        minWidth: MediaQuery.of(context).size.width,
         height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Btn.minWidthFixHeight(
-              minWidth: MediaQuery.of(context).size.width,
-              height: 50,
-              color: MyTheme.accent_color,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0.0),
-              ),
-              child: Text(
-                widget.paymentFor == PaymentFor.WalletRecharge
-                    ? AppLocalizations.of(context)!.recharge_wallet_ucf
-                    : widget.paymentFor == PaymentFor.ManualPayment
-                        ? AppLocalizations.of(context)!.proceed_all_caps
-                        : widget.paymentFor == PaymentFor.PackagePay
-                            ? AppLocalizations.of(context)!.buy_package_ucf
-                            : AppLocalizations.of(context)!
-                                .place_my_order_all_capital,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
-              ),
-              onPressed: () {
-                onPressPlaceOrderOrProceed();
-              },
-            )
-          ],
+        color: MyTheme.accent_color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0),
         ),
+        child: Text(
+          widget.paymentFor == PaymentFor.WalletRecharge
+              ? AppLocalizations.of(context)!.recharge_wallet_ucf
+              : widget.paymentFor == PaymentFor.ManualPayment
+                  ? AppLocalizations.of(context)!.proceed_all_caps
+                  : widget.paymentFor == PaymentFor.PackagePay
+                      ? AppLocalizations.of(context)!.buy_package_ucf
+                      : AppLocalizations.of(context)!
+                          .place_my_order_all_capital,
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        onPressed: () {
+          onPressPlaceOrderOrProceed();
+        },
       ),
     );
   }
 
   Widget grandTotalSection() {
     return Container(
-      height: 40,
-      width: double.infinity,
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: MyTheme.soft_accent_color),
@@ -1125,28 +1115,31 @@ class _CheckoutState extends State<Checkout> {
               padding: const EdgeInsets.only(left: 16.0),
               child: Text(
                 AppLocalizations.of(context)!.total_amount_ucf,
-                style: TextStyle(color: MyTheme.font_grey, fontSize: 14),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: MyTheme.white),
               ),
             ),
-            Visibility(
-              visible: widget.paymentFor != PaymentFor.ManualPayment,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: InkWell(
-                  onTap: () {
-                    onPressDetails();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.see_details_all_lower,
-                    style: TextStyle(
-                      color: MyTheme.font_grey,
-                      fontSize: 12,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Visibility(
+            //   visible: widget.paymentFor != PaymentFor.ManualPayment,
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(left: 8.0),
+            //     child: InkWell(
+            //       onTap: () {
+            //         onPressDetails();
+            //       },
+            //       child: Text(
+            //         AppLocalizations.of(context)!.see_details_all_lower,
+            //         style: TextStyle(
+            //           color: MyTheme.font_grey,
+            //           fontSize: 12,
+            //           decoration: TextDecoration.underline,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
@@ -1158,10 +1151,10 @@ class _CheckoutState extends State<Checkout> {
                               SystemConfig.systemCurrency!.code!,
                               SystemConfig.systemCurrency!.symbol!)
                           : _totalString!,
-                  style: TextStyle(
-                      color: MyTheme.accent_color,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: MyTheme.white)),
             ),
           ],
         ),

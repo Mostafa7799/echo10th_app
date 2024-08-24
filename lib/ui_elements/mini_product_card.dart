@@ -70,11 +70,7 @@ class _MiniProductCardState extends State<MiniProductCard> {
                     widget.name!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: TextStyle(
-                        color: MyTheme.font_grey,
-                        fontSize: 12,
-                        height: 1.2,
-                        fontWeight: FontWeight.w400),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
                 widget.has_discount!
@@ -104,10 +100,7 @@ class _MiniProductCardState extends State<MiniProductCard> {
                             SystemConfig.systemCurrency!.symbol!)
                         : widget.main_price!,
                     maxLines: 1,
-                    style: TextStyle(
-                        color: MyTheme.accent_color,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
               ]),

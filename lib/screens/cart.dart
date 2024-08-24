@@ -324,20 +324,20 @@ class _CartState extends State<Cart> {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
                       AppLocalizations.of(context)!.total_amount_ucf,
-                      style: TextStyle(
-                          color: MyTheme.dark_font_grey,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700),
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(color: MyTheme.white),
                     ),
                   ),
                   Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(_cartTotalString,
-                        style: TextStyle(
-                            color: MyTheme.accent_color,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: MyTheme.white)),
                   ),
                 ],
               ),

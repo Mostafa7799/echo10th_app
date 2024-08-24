@@ -15,7 +15,7 @@ class AuthScreen {
         body: Stack(
           children: [
             Container(
-              height: DeviceInfo(context).height! / 3,
+              height: DeviceInfo(context).height! / 2,
               width: DeviceInfo(context).width,
               alignment: Alignment.topRight,
               decoration: BoxDecoration(
@@ -24,9 +24,6 @@ class AuthScreen {
                   bottomLeft: Radius.circular(16),
                   bottomRight: Radius.circular(16),
                 ),
-              ),
-              child: Image.asset(
-                "assets/background_1.png",
               ),
             ),
             CustomScrollView(

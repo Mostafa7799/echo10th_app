@@ -135,25 +135,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 delegate: SliverChildListDelegate([
                                   Container(
                                     padding: EdgeInsets.all(8),
-                                    color: MyTheme.accent_color,
-                                    child: Stack(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .featured_products_ucf,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            buildHomeFeatureProductHorizontalList(
-                                                homeData)
-                                          ],
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .featured_products_ucf,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
                                         ),
+                                        buildHomeFeatureProductHorizontalList(
+                                            homeData)
                                       ],
                                     ),
                                   ),

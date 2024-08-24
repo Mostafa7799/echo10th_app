@@ -15,22 +15,13 @@ import 'package:active_ecommerce_flutter/screens/address.dart';
 import 'package:active_ecommerce_flutter/screens/auction/auction_products.dart';
 import 'package:active_ecommerce_flutter/screens/change_language.dart';
 import 'package:active_ecommerce_flutter/screens/chat/messenger_list.dart';
-import 'package:active_ecommerce_flutter/screens/classified_ads/classified_ads.dart';
 import 'package:active_ecommerce_flutter/screens/classified_ads/my_classified_ads.dart';
 import 'package:active_ecommerce_flutter/screens/club_point.dart';
-import 'package:active_ecommerce_flutter/screens/coupon/coupons.dart';
 import 'package:active_ecommerce_flutter/screens/currency_change.dart';
-import 'package:active_ecommerce_flutter/screens/digital_product/digital_products.dart';
-import 'package:active_ecommerce_flutter/screens/digital_product/purchased_digital_produts.dart';
-import 'package:active_ecommerce_flutter/screens/filter.dart';
-import 'package:active_ecommerce_flutter/screens/followed_sellers.dart';
 import 'package:active_ecommerce_flutter/screens/notification/notification_list.dart';
 import 'package:active_ecommerce_flutter/screens/orders/order_list.dart';
-import 'package:active_ecommerce_flutter/screens/product/last_view_product.dart';
-import 'package:active_ecommerce_flutter/screens/product/top_selling_products.dart';
 import 'package:active_ecommerce_flutter/screens/profile_edit.dart';
 import 'package:active_ecommerce_flutter/screens/refund_request.dart';
-import 'package:active_ecommerce_flutter/screens/uploads/upload_file.dart';
 import 'package:active_ecommerce_flutter/screens/wallet.dart';
 import 'package:active_ecommerce_flutter/screens/wishlist.dart';
 import 'package:badges/badges.dart' as badges;
@@ -50,7 +41,7 @@ import 'auction/auction_purchase_history.dart';
 class Profile extends StatefulWidget {
   Profile({Key? key, this.show_back_button = false}) : super(key: key);
 
-  bool show_back_button;
+  final bool show_back_button;
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -58,7 +49,6 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   ScrollController _mainScrollController = ScrollController();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   bool _auctionExpand = false;
   int? _cartCounter = 0;
@@ -563,21 +553,19 @@ class _ProfileState extends State<Profile> {
   Widget buildSettingAndAddonsHorizontalMenu() {
     return SizedBox(
       width: DeviceInfo(context).width,
-      height: 200,
+      height: 250,
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 16),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridView(
-            scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.vertical,
             physics: const PageScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisSpacing: 16.0,
-              crossAxisSpacing: 2.0,
-              crossAxisCount: 2,
+              crossAxisSpacing: 5,
+              crossAxisCount: 3,
             ),
             shrinkWrap: true,
-            cacheExtent: 5.0,
             children: [
               if (wallet_system_status.$)
                 buildSettingAndAddonsHorizontalMenuItem("assets/wallet.png",
@@ -689,28 +677,28 @@ class _ProfileState extends State<Profile> {
                           }
                         : () => null),
 
-              buildSettingAndAddonsHorizontalMenuItem(
-                  "assets/download.png",
-                  AppLocalizations.of(context)!.downloads_ucf,
-                  is_logged_in.$
-                      ? () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return PurchasedDigitalProducts();
-                          }));
-                        }
-                      : () => null),
-              buildSettingAndAddonsHorizontalMenuItem(
-                  "assets/download.png",
-                  "Upload file",
-                  is_logged_in.$
-                      ? () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return UploadFile();
-                          }));
-                        }
-                      : () => null),
+              // buildSettingAndAddonsHorizontalMenuItem(
+              //     "assets/download.png",
+              //     AppLocalizations.of(context)!.downloads_ucf,
+              //     is_logged_in.$
+              //         ? () {
+              //             Navigator.push(context,
+              //                 MaterialPageRoute(builder: (context) {
+              //               return PurchasedDigitalProducts();
+              //             }));
+              //           }
+              //         : () => null),
+              // buildSettingAndAddonsHorizontalMenuItem(
+              //     "assets/download.png",
+              //     "Upload file",
+              //     is_logged_in.$
+              //         ? () {
+              //             Navigator.push(context,
+              //                 MaterialPageRoute(builder: (context) {
+              //               return UploadFile();
+              //             }));
+              //           }
+              //         : () => null),
               // notification and badge contents
             ],
           ),
@@ -884,9 +872,6 @@ class _ProfileState extends State<Profile> {
                   child: Text(
                     //if user email is not available then check user phone if user phone is not available use empty string
                     "${user_email.$ != "" ? user_email.$ : user_phone.$ != "" ? user_phone.$ : ''}",
-                    style: TextStyle(
-                      color: MyTheme.light_grey,
-                    ),
                   )),
             ],
           )

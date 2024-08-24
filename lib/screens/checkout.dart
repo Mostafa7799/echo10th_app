@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:active_ecommerce_flutter/custom/box_decorations.dart';
 import 'package:active_ecommerce_flutter/custom/btn.dart';
 import 'package:active_ecommerce_flutter/custom/enum_classes.dart';
@@ -227,27 +229,20 @@ class _CheckoutState extends State<Checkout> {
     fetchSummary();
   }
 
+
+  // LOOK HERE FOR PAYMENT.............................
   onPressPlaceOrderOrProceed() async {
     if (guest_checkout_status.$ && !is_logged_in.$) {
       Loading.show(context);
-      // guest checkout user create response
-
       var guestUserAccountCreateResponse = await GuestCheckoutRepository()
           .guestUserAccountCreate(widget.guestCheckOutShippingAddress);
       Loading.close();
-
-      // after creating  guest user save to auth helper
       AuthHelper().setUserData(guestUserAccountCreateResponse);
-
       if (!guestUserAccountCreateResponse.result!) {
         ToastComponent.showDialog(
           LangText(context).local.already_have_account,
           gravity: Toast.center,
         );
-
-        // if user not created
-        // or any issue occurred
-        // then it goes to guest check address page
         Navigator.pushAndRemoveUntil(OneContext().context!,
             MaterialPageRoute(builder: (context) {
           return GuestCheckoutAddress();
@@ -544,6 +539,7 @@ class _CheckoutState extends State<Checkout> {
   }
 
   onPaymentMethodItemTap(index) {
+    log(_paymentTypeList[index].payment_type.toString());
     if (_selected_payment_method_key !=
         _paymentTypeList[index].payment_type_key) {
       setState(() {
@@ -792,13 +788,6 @@ class _CheckoutState extends State<Checkout> {
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           children: [
-                            // widget.paymentFor == PaymentFor.Order
-                            //     ? Padding(
-                            //         padding:
-                            //             const EdgeInsets.only(bottom: 16.0),
-                            //         child: buildApplyCouponRow(context),
-                            //       )
-                            //     : Container(),
                             grandTotalSection(),
                           ],
                         ),
@@ -956,12 +945,14 @@ class _CheckoutState extends State<Checkout> {
       );
     } else if (!_isInitial && _paymentTypeList.length == 0) {
       return Container(
-          height: 100,
-          child: Center(
-              child: Text(
+        height: 100,
+        child: Center(
+          child: Text(
             AppLocalizations.of(context)!.no_payment_method_is_added,
             style: TextStyle(color: MyTheme.font_grey),
-          )));
+          ),
+        ),
+      );
     }
   }
 

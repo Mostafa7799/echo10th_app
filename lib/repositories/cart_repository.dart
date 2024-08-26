@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/data_model/cart_add_response.dart';
 import 'package:active_ecommerce_flutter/data_model/cart_count_response.dart';
@@ -136,16 +136,7 @@ class CartRepository {
       });
     }
 
-    // var post_body = jsonEncode({
-    //   "id": "${id}",
-    //   "variant": variant,
-    //   "user_id": "$user_id",
-    //   "quantity": "$quantity",
-    //   "cost_matrix": AppConfig.purchase_code,
-    //   "temp_user_id": temp_user_id.$
-    // });
-
-    // print(post_body);
+    log(post_body.toString());
     String url = ("${AppConfig.BASE_URL}/carts/add");
     final response = await ApiRequest.post(
       url: url,
@@ -157,8 +148,7 @@ class CartRepository {
       body: post_body,
       middleware: BannedUser(),
     );
-
-    // print(response.body);
+    log(response.body.toString());
 
     return cartAddResponseFromJson(response.body);
   }

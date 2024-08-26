@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/custom/box_decorations.dart';
@@ -354,6 +355,7 @@ class _ProductDetailsState extends State<ProductDetails>
 
     var cartAddResponse = await CartRepository().getCartAddResponse(
         _productDetails!.id, _variant, user_id.$, _quantity);
+
 
     temp_user_id.$ = cartAddResponse.tempUserId;
     temp_user_id.save();

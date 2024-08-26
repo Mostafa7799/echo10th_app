@@ -52,6 +52,23 @@ class PaymentRepository {
     return orderCreateResponseFromJson(response.body);
   }
 
+  Future<PaypalUrlResponse> getKasherUrlResponse(
+      String payment_type,
+      int? combined_order_id,
+      var package_id,
+      double? amount,
+      int? orderId) async {
+    String url =
+        ("${AppConfig.BASE_URL}/kashier/payment/url?payment_type=${payment_type}&combined_order_id=${combined_order_id}&amount=${amount}&user_id=${user_id.$}&package_id=$package_id&order_id=$orderId");
+    final response = await ApiRequest.get(url: url, headers: {
+      "App-Language": app_language.$!,
+    });
+
+    print(response.body);
+
+    return paypalUrlResponseFromJson(response.body);
+  }
+
   Future<PaypalUrlResponse> getPaypalUrlResponse(
       String payment_type,
       int? combined_order_id,

@@ -15,14 +15,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../helpers/main_helpers.dart';
 import '../profile.dart';
 
-class PaypalScreen extends StatefulWidget {
-  double? amount;
-  String payment_type;
-  String? payment_method_key;
-  var package_id;
-  int? orderId;
+class kasherWebViewScreen extends StatefulWidget {
+  final double? amount;
+  final String payment_type;
+  final String? payment_method_key;
+  final package_id;
+  final int? orderId;
 
-  PaypalScreen(
+  kasherWebViewScreen(
       {Key? key,
       this.amount = 0.00,
       this.orderId = 0,
@@ -32,10 +32,10 @@ class PaypalScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  _PaypalScreenState createState() => _PaypalScreenState();
+  _kasherWebViewScreenState createState() => _kasherWebViewScreenState();
 }
 
-class _PaypalScreenState extends State<PaypalScreen> {
+class _kasherWebViewScreenState extends State<kasherWebViewScreen> {
   int? _combined_order_id = 0;
   bool _order_init = false;
   String? _initial_url = "";
@@ -76,29 +76,27 @@ class _PaypalScreenState extends State<PaypalScreen> {
   }
 
   getSetInitialUrl() async {
-    var paypalUrlResponse = await PaymentRepository().getKasherUrlResponse(
+    var response = await PaymentRepository().getKasherUrlResponse(
         widget.payment_type,
         _combined_order_id,
         widget.package_id,
         widget.amount,
         widget.orderId);
 
-    if (paypalUrlResponse.result == false) {
-      ToastComponent.showDialog(paypalUrlResponse.message!,
+    if (response.result == false) {
+      ToastComponent.showDialog(response.message!,
           gravity: Toast.center, duration: Toast.lengthLong);
       Navigator.of(context).pop();
       return;
     }
 
-    _initial_url = paypalUrlResponse.url;
+    _initial_url = response.url;
     _initial_url_fetched = true;
     setState(() {});
-    paypal();
-    // print(_initial_url);
-    // print(_initial_url_fetched);
+    kasher();
   }
 
-  paypal() {
+  kasher() {
     _webViewController
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
@@ -106,9 +104,9 @@ class _PaypalScreenState extends State<PaypalScreen> {
         NavigationDelegate(
           onWebResourceError: (error) {},
           onPageFinished: (page) {
-            if (page.contains("/paypal/payment/done")) {
+            if (page.contains("/kashier/payment/done")) {
               getData();
-            } else if (page.contains("/paypal/payment/cancel")) {
+            } else if (page.contains("/kashier/payment/cancel")) {
               ToastComponent.showDialog("Payment cancelled",
                   gravity: Toast.center, duration: Toast.lengthLong);
               Navigator.of(context).pop();
@@ -216,7 +214,7 @@ class _PaypalScreenState extends State<PaypalScreen> {
         ),
       ),
       title: Text(
-        AppLocalizations.of(context)!.pay_with_paypal,
+        AppLocalizations.of(context)!.bank_payment,
         style: TextStyle(fontSize: 16, color: MyTheme.accent_color),
       ),
       elevation: 0.0,

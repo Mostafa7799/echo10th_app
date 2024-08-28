@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
 class SelectAddress extends StatefulWidget {
-  int? owner_id;
+  final int? owner_id;
   SelectAddress({Key? key, this.owner_id}) : super(key: key);
 
   @override

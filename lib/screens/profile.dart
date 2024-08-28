@@ -610,7 +610,7 @@ class _ProfileState extends State<Profile> {
                         : () => null),
               Container(
                 child: badges.Badge(
-                  position: badges.BadgePosition.topEnd(top: 8, end: 20),
+                  position: badges.BadgePosition.topEnd(top: 12, end: 30),
                   badgeStyle: badges.BadgeStyle(
                     shape: badges.BadgeShape.circle,
                     badgeColor: MyTheme.accent_color,
@@ -627,7 +627,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   child: buildSettingAndAddonsHorizontalMenuItem(
                       "assets/notification.png",
-                      "Notifications",
+                      AppLocalizations.of(context)!.notification_ucf,
                       is_logged_in.$
                           ? () {
                               Navigator.push(context,
@@ -838,11 +838,14 @@ class _ProfileState extends State<Profile> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
                   side: BorderSide(color: MyTheme.black)),
-              child: Text(
-                is_logged_in.$
-                    ? AppLocalizations.of(context)!.logout_ucf
-                    : LangText(context).local.login_ucf,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+              child: Center(
+                child: Text(
+                  is_logged_in.$
+                      ? AppLocalizations.of(context)!.logout_ucf
+                      : LangText(context).local.login_ucf,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
               onPressed: () {
                 if (is_logged_in.$)

@@ -754,7 +754,10 @@ class _CheckoutState extends State<Checkout> {
       ),
       title: Text(
         widget.title!,
-        style: TextStyle(fontSize: 16, color: MyTheme.accent_color),
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge!
+            .copyWith(color: MyTheme.accent_color),
       ),
       elevation: 0.0,
       titleSpacing: 0,
@@ -925,8 +928,10 @@ class _CheckoutState extends State<Checkout> {
                       ? AppLocalizations.of(context)!.buy_package_ucf
                       : AppLocalizations.of(context)!
                           .place_my_order_all_capital,
-          style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: MyTheme.white),
         ),
         onPressed: () {
           onPressPlaceOrderOrProceed();

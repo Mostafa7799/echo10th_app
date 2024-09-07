@@ -102,7 +102,13 @@ class _kasherWebViewScreenState extends State<kasherWebViewScreen> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onWebResourceError: (error) {},
+          onWebResourceError: (error) {
+            print("WebResourceError: ${error.description}");
+            ToastComponent.showDialog(
+                "An error occurred while loading the page.",
+                gravity: Toast.center,
+                duration: Toast.lengthLong);
+          },
           onPageFinished: (page) {
             if (page.contains("/kashier/payment/done")) {
               getData();

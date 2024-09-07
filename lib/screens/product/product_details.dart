@@ -356,7 +356,6 @@ class _ProductDetailsState extends State<ProductDetails>
     var cartAddResponse = await CartRepository().getCartAddResponse(
         _productDetails!.id, _variant, user_id.$, _quantity);
 
-
     temp_user_id.$ = cartAddResponse.tempUserId;
     temp_user_id.save();
 
@@ -1540,7 +1539,7 @@ class _ProductDetailsState extends State<ProductDetails>
                   AppLocalizations.of(context)!.add_to_cart_ucf,
                   style: Theme.of(context)
                       .textTheme
-                      .titleMedium!
+                      .titleLarge!
                       .copyWith(color: MyTheme.white),
                 ),
               ),
@@ -1565,8 +1564,8 @@ class _ProductDetailsState extends State<ProductDetails>
                   AppLocalizations.of(context)!.buy_now_ucf,
                   style: Theme.of(context)
                       .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.white),
+                      .titleLarge!
+                      .copyWith(color: MyTheme.white),
                 ),
               ),
             ),

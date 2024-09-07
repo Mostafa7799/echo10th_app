@@ -326,7 +326,7 @@ class _CartState extends State<Cart> {
                       AppLocalizations.of(context)!.total_amount_ucf,
                       style: Theme.of(context)
                           .textTheme
-                          .labelLarge!
+                          .titleMedium!
                           .copyWith(color: MyTheme.white),
                     ),
                   ),
@@ -389,10 +389,10 @@ class _CartState extends State<Cart> {
                             ),
                       child: Text(
                         AppLocalizations.of(context)!.proceed_to_shipping_ucf,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(color: MyTheme.white),
                       ),
                       onPressed: () {
                         onPressProceedToShipping();
@@ -546,10 +546,7 @@ class _CartState extends State<Cart> {
                       _shopList[seller_index].cartItems[item_index].productName,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      style: TextStyle(
-                          color: MyTheme.font_grey,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 23.0),

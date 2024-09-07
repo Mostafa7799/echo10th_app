@@ -539,7 +539,7 @@ class _SelectAddressState extends State<SelectAddress> {
           LangText(context).local.continue_to_delivery_info_ucf,
           style: Theme.of(context)
               .textTheme
-              .titleMedium!
+              .titleLarge!
               .copyWith(color: MyTheme.white),
         ),
         onPressed: () {

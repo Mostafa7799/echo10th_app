@@ -213,33 +213,23 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
       backgroundColor: Colors.white,
       appBar: buildAppBar(context),
       bottomNavigationBar: BottomAppBar(
-        child: Container(
-          color: Colors.transparent,
+        child: Btn.minWidthFixHeight(
+          minWidth: MediaQuery.of(context).size.width,
           height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // continue to delivery button
-              Btn.minWidthFixHeight(
-                minWidth: MediaQuery.of(context).size.width,
-                height: 50,
-                color: MyTheme.accent_color,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0.0),
-                ),
-                child: Text(
-                  AppLocalizations.of(context)!.continue_to_delivery_info_ucf,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-                onPressed: () {
-                  continueToDeliveryInfo();
-                },
-              ),
-            ],
+          color: MyTheme.accent_color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
           ),
+          child: Text(
+            AppLocalizations.of(context)!.continue_to_delivery_info_ucf,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: MyTheme.white),
+          ),
+          onPressed: () {
+            continueToDeliveryInfo();
+          },
         ),
       ),
       body: SingleChildScrollView(
@@ -252,8 +242,10 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               // name
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(AppLocalizations.of(context)!.name_ucf,
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12)),
+                child: Text(
+                  AppLocalizations.of(context)!.name_ucf,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -272,7 +264,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(AppLocalizations.of(context)!.email_ucf,
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -290,8 +282,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text("${AppLocalizations.of(context)!.address_ucf} *",
-                    style:
-                        TextStyle(color: MyTheme.dark_font_grey, fontSize: 12)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
 
               Padding(
@@ -313,7 +304,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text("${AppLocalizations.of(context)!.country_ucf} *",
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -332,7 +323,8 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                             child: Text(
                                 AppLocalizations.of(context)!
                                     .loading_countries_ucf,
-                                style: TextStyle(color: MyTheme.medium_grey))),
+                                style:
+                                    Theme.of(context).textTheme.titleMedium)),
                       );
                     },
                     itemBuilder: (context, dynamic country) {
@@ -340,7 +332,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                         dense: true,
                         title: Text(
                           country.name,
-                          style: TextStyle(color: MyTheme.font_grey),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       );
                     },
@@ -372,7 +364,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text("${AppLocalizations.of(context)!.state_ucf} *",
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -397,7 +389,8 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                             child: Text(
                                 AppLocalizations.of(context)!
                                     .loading_states_ucf,
-                                style: TextStyle(color: MyTheme.medium_grey))),
+                                style:
+                                    Theme.of(context).textTheme.titleMedium)),
                       );
                     },
                     itemBuilder: (context, dynamic state) {
@@ -406,7 +399,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                         dense: true,
                         title: Text(
                           state.name,
-                          style: TextStyle(color: MyTheme.font_grey),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       );
                     },
@@ -442,7 +435,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text("${AppLocalizations.of(context)!.city_ucf} *",
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -467,7 +460,8 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                             child: Text(
                                 AppLocalizations.of(context)!
                                     .loading_cities_ucf,
-                                style: TextStyle(color: MyTheme.medium_grey))),
+                                style:
+                                    Theme.of(context).textTheme.titleMedium)),
                       );
                     },
                     itemBuilder: (context, dynamic city) {
@@ -476,7 +470,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
                         dense: true,
                         title: Text(
                           city.name,
-                          style: TextStyle(color: MyTheme.font_grey),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       );
                     },
@@ -509,7 +503,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(AppLocalizations.of(context)!.postal_code,
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
@@ -527,7 +521,7 @@ class _GuestCheckoutAddressState extends State<GuestCheckoutAddress> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(AppLocalizations.of(context)!.phone_ucf,
-                    style: TextStyle(color: MyTheme.font_grey, fontSize: 12)),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),

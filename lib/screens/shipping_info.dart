@@ -618,8 +618,10 @@ class _ShippingInfoState extends State<ShippingInfo> {
         ),
         child: Text(
           AppLocalizations.of(context)!.proceed_to_checkout,
-          style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: MyTheme.white),
         ),
         onPressed: () {
           onPressProceed(context);
@@ -744,47 +746,40 @@ class _ShippingInfoState extends State<ShippingInfo> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
           side: BorderSide(color: MyTheme.accent_color)),
-      padding: EdgeInsets.only(right: 14),
+      padding: EdgeInsets.symmetric(horizontal: 8),
       onPressed: () {
         changeShippingOption(ShippingOption.HomeDelivery, sellerIndex);
       },
-      child: Container(
-        height: 30,
-        // width: (mWidth / 4) - 1,
-        alignment: Alignment.center,
-        child: Row(
-          children: [
-            Radio(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                fillColor: WidgetStateProperty.resolveWith((states) {
-                  if (!states.contains(WidgetState.selected)) {
-                    return MyTheme.accent_color;
-                  }
-                  return MyTheme.white;
-                }),
-                value: ShippingOption.HomeDelivery,
-                groupValue:
-                    _sellerWiseShippingOption[sellerIndex].shippingOption,
-                onChanged: (dynamic newOption) {
-                  changeShippingOption(newOption, sellerIndex);
-                }),
-            Text(
-              AppLocalizations.of(context)!.home_delivery_ucf,
-              style: TextStyle(
-                  fontSize: 12,
-                  color:
-                      _sellerWiseShippingOption[sellerIndex].shippingOption ==
-                              ShippingOption.HomeDelivery
-                          ? MyTheme.white
-                          : MyTheme.accent_color,
-                  fontWeight:
-                      _sellerWiseShippingOption[sellerIndex].shippingOption ==
-                              ShippingOption.HomeDelivery
-                          ? FontWeight.w700
-                          : FontWeight.normal),
-            ),
-          ],
-        ),
+      child: Row(
+        children: [
+          Radio(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              fillColor: WidgetStateProperty.resolveWith((states) {
+                if (!states.contains(WidgetState.selected)) {
+                  return MyTheme.accent_color;
+                }
+                return MyTheme.white;
+              }),
+              value: ShippingOption.HomeDelivery,
+              groupValue: _sellerWiseShippingOption[sellerIndex].shippingOption,
+              onChanged: (dynamic newOption) {
+                changeShippingOption(newOption, sellerIndex);
+              }),
+          Text(
+            AppLocalizations.of(context)!.home_delivery_ucf,
+            style: TextStyle(
+                fontSize: 12,
+                color: _sellerWiseShippingOption[sellerIndex].shippingOption ==
+                        ShippingOption.HomeDelivery
+                    ? MyTheme.white
+                    : MyTheme.accent_color,
+                fontWeight:
+                    _sellerWiseShippingOption[sellerIndex].shippingOption ==
+                            ShippingOption.HomeDelivery
+                        ? FontWeight.w700
+                        : FontWeight.normal),
+          ),
+        ],
       ),
     );
   }
@@ -982,10 +977,7 @@ class _ShippingInfoState extends State<ShippingInfo> {
                       .productName!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: TextStyle(
-                      color: MyTheme.font_grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             ),
